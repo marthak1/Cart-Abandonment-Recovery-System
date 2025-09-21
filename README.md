@@ -28,7 +28,9 @@ This project addresses cart abandonment in e-commerce by developing and deployin
 ---
 
 ## 📦 Folder Structure
-🖥️ React Frontend
+### 🖥️ React Frontend
+
+#### 📁 Structure
 frontend/
 ├── src/
 │   ├── components/
@@ -39,3 +41,20 @@ frontend/
 │   └── index.js
 ├── Dockerfile
 ├── package.json
+
+### 🧱 Backend: Spring Boot + Hibernate + MySQL
+
+#### 📁 Structure
+backend/
+├── src/main/java/com/example/cart/
+│   ├── CartRecoveryApplication.java
+│   ├── controller/CartController.java
+│   ├── model/Product.java
+│   ├── model/CartItem.java
+│   ├── repository/ProductRepository.java
+│   ├── repository/CartItemRepository.java
+│   └── service/CartService.java
+├── resources/
+│   ├── application.properties
+├── Dockerfile
+├── pom.xml
