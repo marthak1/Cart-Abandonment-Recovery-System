@@ -31,7 +31,7 @@ This project addresses cart abandonment in e-commerce by developing and deployin
 ### 🖥️ React Frontend
 
 #### 📁 Structure
-'''
+'''bash
 frontend/
 ├── src/
 │   ├── components/
