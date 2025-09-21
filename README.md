@@ -27,9 +27,9 @@ This project addresses cart abandonment in e-commerce by developing and deployin
 
 ---
 ## 📦 Folder Structure
-### 🖥️ React Frontend
+🖥️ React Frontend
 
-#### 📁 Structure
+📁 Structure
 ```bash
 frontend/
 ├── src/
@@ -43,9 +43,9 @@ frontend/
 ├── package.json
 
 ```
-### 🧱 Backend: Spring Boot + Hibernate + MySQL
+🧱 Backend: Spring Boot + Hibernate + MySQL
 
-#### 📁 Structure
+📁 Structure
 ```bash
 backend/
 ├── src/main/java/com/example/cart/
@@ -60,4 +60,24 @@ backend/
 │   ├── application.properties
 ├── Dockerfile
 ├── pom.xml
+```
+
+🔹 Full-Stack Repository Structure
+
+📁 Structure
+```bash
+cart-recovery-mvp/
+├── frontend/
+│   ├── src/
+│   ├── README.test.md
+├── backend/
+│   ├── src/
+│   ├── README.test.md
+├── docs/
+│   ├── URD.md
+│   ├── traceability.md
+│   ├── flowchart.png
+│   ├── usecase.png
+├── docker-compose.yml
+├── README.md
 ```
