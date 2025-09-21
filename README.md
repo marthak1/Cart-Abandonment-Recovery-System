@@ -26,4 +26,38 @@ This project addresses cart abandonment in e-commerce by developing and deployin
 - CI/CD pipeline for automated builds
 
 ---
+## 📦 Folder Structure
+### 🖥️ React Frontend
 
+#### 📁 Structure
+```bash
+frontend/
+├── src/
+│   ├── components/
+│   │   ├── ProductList.js
+│   │   ├── Cart.js
+│   │   └── RecoveryModal.js
+│   ├── App.js
+│   └── index.js
+├── Dockerfile
+├── package.json
+
+```
+### 🧱 Backend: Spring Boot + Hibernate + MySQL
+
+#### 📁 Structure
+```bash
+backend/
+├── src/main/java/com/example/cart/
+│   ├── CartRecoveryApplication.java
+│   ├── controller/CartController.java
+│   ├── model/Product.java
+│   ├── model/CartItem.java
+│   ├── repository/ProductRepository.java
+│   ├── repository/CartItemRepository.java
+│   └── service/CartService.java
+├── resources/
+│   ├── application.properties
+├── Dockerfile
+├── pom.xml
+```
