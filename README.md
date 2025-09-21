@@ -27,7 +27,7 @@ This project addresses cart abandonment in e-commerce by developing and deployin
 
 ---
 ## 📦 Folder Structure
-🖥️ React Frontend
+🖥️ Frontend: React + Axios + Tailwind
 
 📁 Structure
 ```bash
