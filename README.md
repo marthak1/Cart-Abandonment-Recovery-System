@@ -66,18 +66,22 @@ backend/
 
 📁 Structure
 ```bash
-cart-recovery-mvp/
 ├── frontend/
 │   ├── src/
-│   ├── README.test.md
+│   │   ├── components/
+│   │   ├── pages/
+│   │   ├── recoveryModal.js
+│   │   └── App.js
 ├── backend/
 │   ├── src/
-│   ├── README.test.md
-├── docs/
-│   ├── URD.md
-│   ├── traceability.md
-│   ├── flowchart.png
-│   ├── usecase.png
+│   │   ├── controller/
+│   │   ├── service/
+│   │   ├── model/
+│   │   ├── repository/
+│   │   └── exception/
 ├── docker-compose.yml
+├── .github/
+│   └── workflows/
+│       └── ci.yml      
 ├── README.md
 ```
