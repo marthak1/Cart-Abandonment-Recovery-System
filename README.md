@@ -28,3 +28,14 @@ This project addresses cart abandonment in e-commerce by developing and deployin
 ---
 
 ## 📦 Folder Structure
+🖥️ React Frontend
+frontend/
+├── src/
+│   ├── components/
+│   │   ├── ProductList.js
+│   │   ├── Cart.js
+│   │   └── RecoveryModal.js
+│   ├── App.js
+│   └── index.js
+├── Dockerfile
+├── package.json
