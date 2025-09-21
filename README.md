@@ -31,7 +31,7 @@ This project addresses cart abandonment in e-commerce by developing and deployin
 ### 🖥️ React Frontend
 
 #### 📁 Structure
-,,,,
+'''
 frontend/
 ├── src/
 │   ├── components/
@@ -42,7 +42,7 @@ frontend/
 │   └── index.js
 ├── Dockerfile
 ├── package.json
-,,,,
+'''
 
 ### 🧱 Backend: Spring Boot + Hibernate + MySQL
 
