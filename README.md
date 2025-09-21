@@ -2,8 +2,7 @@
 
 ## 🎯 Project Overview
 
-This project addresses cart abandonment in e-commerce by developing and deploying a full-stack application. It includes a React frontend, Spring Boot backend, and MySQL database. The system is containerized using Docker Compose and automated via GitHub Actions. This solution fulfills OTHM Level 5 Learning Outcome 5.5.
-
+This project addresses cart abandonment in e-commerce by developing and deploying a full-stack application. It includes a React frontend, Spring Boot backend, and MySQL database. The system is containerized using Docker Compose and automated via GitHub Actions.
 ---
 
 ## 🧱 Technologies Used
