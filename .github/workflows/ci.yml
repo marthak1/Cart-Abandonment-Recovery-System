@@ -24,7 +24,11 @@ jobs:
           overwrite-settings: true
           job-status: success
           token: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build Spring Boot
+
+      - name: Make Maven Wrapper executable
+        run: chmod +x ecommerce-backend/ecommerce-backend/mvnw
+
+      - name: Build with Maven Wrapper Boot
         run: |
           cd ecommerce-backend/ecommerce-backend
           ./mvnw clean install
