@@ -28,7 +28,7 @@ jobs:
       - name: Build with Maven Wrapper 
         run: |
           cd ecommerce-backend/ecommerce-backend
-          chmod +x
+          chmod +x mvnw
           ./mvnw clean install
 
   build-frontend:
