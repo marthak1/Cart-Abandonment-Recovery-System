@@ -1,0 +1,11 @@
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* App.css is usually for styles specific 
+to the App component or for custom classes
+ used only in that component. */

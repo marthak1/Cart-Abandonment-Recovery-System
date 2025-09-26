@@ -1,0 +1,41 @@
+# version: '3.8'  # or '3', '3.7', etc.
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_DATABASE: cartdb
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build: ./ecommerce-backend/ecommerce-backend
+    container_name: spring_backend
+    depends_on:
+      - mysql
+    environment:
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/cartdb?createDatabaseIfNotExist=true
+      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_JPA_HIBERNATE_DDL_AUTO=update
+      - SPRING_JPA_SHOW_SQL=true
+      - SPRING_JPA_PROPERTIES_HIBERNATE_DIALECT=org.hibernate.dialect.MySQL8Dialect
+    ports:
+      - "8080:8080"
+
+  frontend:
+    build: ./ecommerce-frontend
+    container_name: react_frontenddoc
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+    # environment:
+    #   - VITE_APP_API_URL=http://backend:8080
+
+volumes:
+  mysql_data:
