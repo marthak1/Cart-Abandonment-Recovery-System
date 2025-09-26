@@ -25,7 +25,7 @@ jobs:
           job-status: success
           token: ${{ secrets.GITHUB_TOKEN }}
       - name: Build Spring Boot
-        run: 
+        run: |
           cd ecommerce-backend/ecommerce-backend
           ./mvnw clean install
 
