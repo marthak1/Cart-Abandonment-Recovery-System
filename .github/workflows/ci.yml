@@ -25,12 +25,10 @@ jobs:
           job-status: success
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Make Maven Wrapper executable
-        run: chmod +x ecommerce-backend/ecommerce-backend/mvnw
-
-      - name: Build with Maven Wrapper Boot
+      - name: Build with Maven Wrapper 
         run: |
           cd ecommerce-backend/ecommerce-backend
+          chmod +x
           ./mvnw clean install
 
   build-frontend:
