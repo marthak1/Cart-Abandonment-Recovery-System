@@ -16,7 +16,7 @@ jobs:
         image: mysql:latest
         env:
           MYSQL_DATABASE: cartdb_docker
-          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: testpassword
         ports:
           - 3306:3306
         options: >-
