@@ -47,7 +47,9 @@ jobs:
           done
 
       - name: Build and test with Maven
-        run: ./mvnw clean verify
+        run: |
+         cd ecommerce-backend/ecommerce-backend
+         ./mvnw clean verify
         env:
           SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/cartdb_docker?createDatabaseIfNotExist=TRUE
           SPRING_DATASOURCE_USERNAME: root
