@@ -11,5 +11,5 @@ echo "MySQL is up. Running tests..."
 ./mvnw test \
   -Dspring.datasource.url=jdbc:mysql://localhost:3306/cartdb_docker \
   -Dspring.datasource.username=root \
-  -Dspring.datasource.password=${SPRING_DATASOURCE_PASSWORD}
+  -Dspring.datasource.password=testpassword
 
