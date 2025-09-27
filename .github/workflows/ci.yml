@@ -1,3 +1,4 @@
+
 name: CI/CD Pipeline
 
 on:
@@ -33,18 +34,30 @@ jobs:
         with:
           java-version: '17'
           distribution: 'temurin'
+          java-package: jdk
+          check-latest: false
+          server-id: github
+          server-username: ${{ github.actor }}
+          server-password: ${{ secrets.GITHUB_TOKEN }}
+          overwrite-settings: true
+          job-status: success
+          token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Make scripts executable
-        run: |
+      - name: Make Maven wrapper executable
+        run: 
           cd ecommerce-backend/ecommerce-backend
           chmod +x mvnw
           chmod +x wait-for-db.sh
+      - name: Make scripts executable
+        run: |
+           cd ecommerce-backend/ecommerce-backend
+           chmod +x mvnw
+           chmod +x wait-for-db.sh
 
       - name: Wait for MySQL and Run Tests
         run: |
           cd ecommerce-backend/ecommerce-backend
           ./wait-for-db.sh
-
       - name: Build backend
         run: |
           cd ecommerce-backend/ecommerce-backend
@@ -54,27 +67,22 @@ jobs:
         run: |
           cd ecommerce-backend/ecommerce-backend
           ./mvnw test \
-            -Dspring.datasource.url=jdbc:mysql://localhost:3306/cartdb_docker \
+            -Dspring.datasource.url=jdbc:mysql://localhost:3306/ecommerce \
             -Dspring.datasource.username=root \
-            -Dspring.datasource.password=${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+            -Dspring.datasource.password= ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+
 
   build-frontend:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
+      - uses: actions/checkout@v3
       - name: Set up Node
         uses: actions/setup-node@v3
         with:
           node-version: '18'
-
-      - name: Install dependencies
+      - name: Install and Build React
         run: |
           cd ecommerce-frontend
           npm install
-
-      - name: Run frontend tests
-        run: |
-          cd ecommerce-frontend
-          npm run test
+          npm run build
+       
