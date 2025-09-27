@@ -1,6 +1,7 @@
 # Dockerfile for Spring Boot Backend
-FROM eclipse-temurin:17-jdk-jammy AS build
+FROM openjdk:17-jdk-alpine AS build
 WORKDIR /app
+COPY target/ecommerce-backend-0.0.1-SNAPSHOT.jar app.jar
 COPY . .
 COPY .mvn/ .mvn
 COPY mvnw pom.xml ./
