@@ -1,77 +1,57 @@
 
-name: CI/CD Pipeline
+name: CI - Spring Boot with Dockerized MySQL
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]
   pull_request:
+    branches: [ main ]
 
 jobs:
-  build-backend:
+  build-and-test:
     runs-on: ubuntu-latest
 
     services:
       mysql:
-        image: mysql:latest
+        image: mysql:8.0
         env:
-          MYSQL_DATABASE: cartdb_docker
           MYSQL_ROOT_PASSWORD: testpassword
+          MYSQL_DATABASE: cartdb_docker
         ports:
           - 3306:3306
         options: >-
           --health-cmd="mysqladmin ping --silent"
           --health-interval=10s
           --health-timeout=5s
-          --health-retries=10
+          --health-retries=5
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
       - name: Set up JDK 17
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
-          java-version: '17'
           distribution: 'temurin'
-          java-package: jdk
-          check-latest: false
-          server-id: github
-          server-username: ${{ github.actor }}
-          server-password: ${{ secrets.GITHUB_TOKEN }}
-          overwrite-settings: true
-          job-status: success
-          token: ${{ secrets.GITHUB_TOKEN }}
+          java-version: '17'
 
-      - name: Make Maven wrapper executable
+      - name: Wait for MySQL to be ready
         run: |
-          cd ecommerce-backend/ecommerce-backend
-          chmod +x mvnw
-          chmod +x wait-for-db.sh
-      - name: Make scripts executable
-        run: |
-           cd ecommerce-backend/ecommerce-backend
-           chmod +x mvnw
-           chmod +x wait-for-db.sh
+          for i in {1..30}; do
+            if mysql -h127.0.0.1 -uroot -proot -e "SELECT 1"; then
+              echo "MySQL is up!"
+              break
+            fi
+            echo "Waiting for MySQL..."
+            sleep 2
+          done
 
-      - name: Wait for MySQL and Run Tests
-        run: |
-          cd ecommerce-backend/ecommerce-backend
-          ./wait-for-db.sh
-      - name: Build backend
-        run: |
-          cd ecommerce-backend/ecommerce-backend
-          ./mvnw clean install
-
-      - name: Run backend tests with MySQL
-        run: |
-          cd ecommerce-backend/ecommerce-backend
-          ./mvnw test \
-            -Dspring.datasource.url=jdbc:mysql://localhost:3306/cartdb_docker \
-            -Dspring.datasource.username=root \
-            -Dspring.datasource.password= testpassword
-
-
+      - name: Build and test with Maven
+        run: ./mvnw clean verify
+        env:
+          SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/cartdb_docker?createDatabaseIfNotExist=TRUE
+          SPRING_DATASOURCE_USERNAME: root
+          SPRING_DATASOURCE_PASSWORD: testpassword
   build-frontend:
     runs-on: ubuntu-latest
     steps:
