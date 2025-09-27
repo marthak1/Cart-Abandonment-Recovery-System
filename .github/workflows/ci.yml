@@ -25,11 +25,20 @@ jobs:
           job-status: success
           token: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build with Maven Wrapper 
+
+      - name: Wait for MySQL and Run Tests
         run: |
           cd ecommerce-backend/ecommerce-backend
-          chmod +x mvnw
+          chmod +x wait-for-db.sh
+          ./wait-for-db.sh
           ./mvnw clean install
+   
+
+      # - name: Build with Maven Wrapper 
+      #   run: |
+      #     cd ecommerce-backend/ecommerce-backend
+      #     chmod +x mvnw
+      #     ./mvnw clean install
 
   build-frontend:
     runs-on: ubuntu-latest
