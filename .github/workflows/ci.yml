@@ -44,7 +44,7 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Make Maven wrapper executable
-        run: 
+        run: |
           cd ecommerce-backend/ecommerce-backend
           chmod +x mvnw
           chmod +x wait-for-db.sh
