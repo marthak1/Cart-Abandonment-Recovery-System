@@ -16,7 +16,7 @@ jobs:
         image: mysql:latest
         env:
           MYSQL_DATABASE: cartdb_docker
-          MYSQL_ROOT_PASSWORD: ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+          MYSQL_ROOT_PASSWORD: ${{ secrets.MYSQL_PASSWORD }}
         ports:
           - 3306:3306
         options: >-
@@ -69,7 +69,7 @@ jobs:
           ./mvnw test \
             -Dspring.datasource.url=jdbc:mysql://localhost:3306/ecommerce \
             -Dspring.datasource.username=root \
-            -Dspring.datasource.password= ${{ secrets.SPRING_DATASOURCE_PASSWORD }}
+            -Dspring.datasource.password= ${{ secrets.MYSQL_PASSWORD }}
 
 
   build-frontend:
