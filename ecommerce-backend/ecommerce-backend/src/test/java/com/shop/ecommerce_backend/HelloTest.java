@@ -7,8 +7,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.test.context.ActiveProfiles;
 // This test starts the Spring Boot app on a random port, sends a GET request to /api/hello, and checks that the response is "Hello, World!".
+@ActiveProfiles("test") // use application-test.properties file/inject H2 dependecy in pom file- this is optional
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ActiveProfiles("test")
 class HelloTest {
 
     @Autowired 

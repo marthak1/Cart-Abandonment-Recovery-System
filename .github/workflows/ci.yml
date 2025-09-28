@@ -38,7 +38,7 @@ jobs:
       - name: Wait for MySQL to be ready
         run: |
           for i in {1..30}; do
-            if mysql -h127.0.0.1 -uroot -proot -e "SELECT 1"; then
+            if mysql -h127.0.0.1 -uroot -p$root -e "SELECT 1"; then
               echo "MySQL is up!"
               break
             fi
@@ -47,7 +47,10 @@ jobs:
           done
 
       - name: Build and test with Maven
-        run: ./mvnw clean verify
+        run: |
+         cd ecommerce-backend/ecommerce-backend
+         chmod +x mvnw
+         ./mvnw clean verify
         env:
           SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/cartdb_docker?createDatabaseIfNotExist=TRUE
           SPRING_DATASOURCE_USERNAME: root

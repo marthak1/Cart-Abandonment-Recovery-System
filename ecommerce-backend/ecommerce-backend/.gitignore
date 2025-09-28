@@ -33,3 +33,6 @@ build/
 .vscode/
 # Ignore db properties
 ecommerce-backend/ecommerce-backend/src/main/resources/application.properties
+.env
+ecommerce-backend/ecommerce-backend/src/main/resources/application-dev.properties
+
