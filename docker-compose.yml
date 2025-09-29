@@ -1,12 +1,12 @@
 # version: '3.8'  # or '3', '3.7', etc.
 services:
-  mysql:
-    image: mysql:8.0
-    container_name: mysql_db
+  db:
+    image: mysql:latest
+    container_name: mysql_dockerdb
     restart: always
     environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_PASSWORD}
-      MYSQL_DATABASE: cartdb
+      MYSQL_ROOT_PASSWORD: ${MYSQLDOCKERDB_PASSWORD}
+      MYSQL_DATABASE: cartdb_docker
     ports:
       - "3306:3306"
     volumes:
@@ -17,9 +17,11 @@ services:
     depends_on:
       - db
     environment:
-      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/cartdb?createDatabaseIfNotExist=true
-      - SPRING_DATASOURCE_USERNAME=root
+      - SPRING_PROFILES_ACTIVE=dev
+      - SPRING_DATASOURCE_PASSWORD=${MYSQLDOCKERDB_PASSWORD}
+      - SPRING_DATASOURCE_URL=jdbc:mysql://db:3306/cartdb_docker?createDatabaseIfNotExist=TRUE
+      - SPRING_DATASOURCE_USERNAME=${MYSQLDOCKERDB_USER}
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=com.mysql.cj.jdbc.Driver
       - SPRING_JPA_HIBERNATE_DDL_AUTO=update
       - SPRING_JPA_SHOW_SQL=true
       - SPRING_JPA_DATABASE_PLATFORM=org.hibernate.dialect.MySQL8Dialect
