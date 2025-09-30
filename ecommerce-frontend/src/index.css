@@ -2,6 +2,4 @@
 @tailwind components;
 @tailwind utilities;
 
-/* index.css is typically used as the global stylesheet for the entire app. 
-It’s where you import Tailwind’s directives (@tailwind base;, etc.) and 
-set up global styles. */
+

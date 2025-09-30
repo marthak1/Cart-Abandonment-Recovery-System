@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import ProductList from '../components/ProductList';
 const Home = () => {
     const [message, setMessage] = useState('');
     // backend/index.js
@@ -10,10 +11,11 @@ const Home = () => {
     }, []);
     return (
     <>
-    <div>
-        <p>{message}</p>
-      <h1 className="text-3xl font-bold underline">Welcome to My Shop!</h1>
-    </div>
+    <div className="container mx-auto px-4 py-6">
+      <p>{message}</p>
+      <h1 className="text-3xl font-bold text-center mb-6">Welcome to Our Store 🛍️</h1>
+     </div>
+      <ProductList />
     </>
   );
 };

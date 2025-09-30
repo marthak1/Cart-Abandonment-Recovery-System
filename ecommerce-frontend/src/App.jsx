@@ -12,7 +12,16 @@ function App() {
       <Route path="/" element={<Home />}/> 
     </Routes>
    </BrowserRouter>
+   
   )
 }
 
 export default App
+// export default function App() {
+//   return (
+//     <div className="bg-primary text-white p-6 rounded-lg text-center">
+//       Tailwind CSS is working!
+//     </div>
+//   );
+// }
+
