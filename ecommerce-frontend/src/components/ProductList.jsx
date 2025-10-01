@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from "react";
+import { fetchProducts } from "../services/api";
+import { useCart } from "../context/CartContext";
+import { useNavigate } from "react-router-dom";
 
-const ProductList = ({ onAddToCart }) => {
+const ProductList = () => {
   const [products, setProducts] = useState([]);
+  const { addToCart } = useCart();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log('Fetching products from /api/products...');
-    axios.get(`https://api.escuelajs.co/api/v1/products`) // fake store API for testing
-      .then(response => {
-        setProducts(response.data);
-        console.log('Products loaded:', response.data);
-      })
-      .catch(error => {
-        console.error('Failed to fetch products:', error);
-      });
+    fetchProducts()
+      .then((res) => setProducts(res.data))
+      .catch(() => {});
   }, []);
 
   return (
@@ -33,9 +31,12 @@ const ProductList = ({ onAddToCart }) => {
             <h3 className="text-secondary text-lg font-semibold">
               {product.title}
             </h3>
-            <span className="text-accent font-bold mb-4">${product.price}</span>
+            <span className="text-accent font-bold mb-4">${product.price.toFixed(2)}</span>
             <button
-              onClick={() => onAddToCart(product)}
+              onClick={() => {
+                addToCart(product); // ✅ update cart
+                navigate("/cart"); // ✅ redirect to cart page
+              }}
               className="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition"
             >
               Add to Cart
@@ -48,3 +49,5 @@ const ProductList = ({ onAddToCart }) => {
 };
 
 export default ProductList;
+
+
