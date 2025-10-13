@@ -1,6 +1,7 @@
 package com.shop.ecommerce_backend.model;
 
-import java.util.ArrayList;
+import java.time.LocalDateTime;
+
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -9,45 +10,60 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import lombok.AllArgsConstructor;
+
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private boolean recovered;
+    private String sessionToken;
 
-    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL)
-    private List<CartItem> items = new ArrayList<>();
-    public Cart() {
-        
-    }
-    public Cart(Long id, boolean recovered, List<CartItem> items) {
-        this.id = id;
-        this.recovered = recovered;
-        this.items = items;
-    }
-    public List<CartItem> getItems() {
-        return items;
+    private boolean isCheckedOut;
+    private LocalDateTime lastUpdated;
+
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL) // one-to-many relationship with CartItem
+    private List<CartItem> items;
+
+    public Cart(String sessionToken) {
+        this.sessionToken = sessionToken;
     }
 
-    public void setItems(List<CartItem> items) {
-        this.items = items;
-    }
+//    public Cart() {
+//
+//    }
+//    public Cart(Long id, boolean isCheckedOut, List<CartItem> items, LocalDateTime lastUpdated, String sessionToken) {
+//        this.id = id;
+//        this.isCheckedOut = isCheckedOut;
+//        this.items = items;
+//        this.lastUpdated = lastUpdated;
+//        this.sessionToken = sessionToken;
+//    }
+//public Cart(String sessionToken) {
+//    this.sessionToken = sessionToken;
+//    this.items = new ArrayList<>();
+//    this.isCheckedOut = false;
+//    this.lastUpdated = LocalDateTime.now();
+//
+//}
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public boolean isRecovered() {
-        return recovered;
-    }
-
-    public void setRecovered(boolean recovered) {
-        this.recovered = recovered;
-    }
 }
+//KeyNotes:
+// - **One Cart** can have **many CartItems**.
+// - The relationship is managed by the `cart` field in `CartItem`.
+// - All operations on `Cart` are cascaded to its `CartItems`.
+
+//sessionToken is the anchor for cart recovery
+//
+//lastUpdated supports inactivity detection
+//
+//isCheckedOut prevents further edits post-purchase
