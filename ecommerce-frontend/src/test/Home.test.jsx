@@ -1,6 +1,6 @@
 // Home.test.jsx
 import { render, screen } from '@testing-library/react' //for rendering and querying-interacting with components
-import Home from './Home'
+import Home from '../pages/Home'
 
 describe('Home', () => {
   it('renders welcome message', () => {

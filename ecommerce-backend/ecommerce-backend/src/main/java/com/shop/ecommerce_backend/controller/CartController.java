@@ -1,97 +1,105 @@
 package com.shop.ecommerce_backend.controller;
-
-import org.springframework.http.HttpStatus;
+import java.util.Map;
+import com.shop.ecommerce_backend.DTO.CartDTO;
+import com.shop.ecommerce_backend.DTO.CartMapper;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import com.shop.ecommerce_backend.model.Cart;
 import com.shop.ecommerce_backend.service.CartServiceImpl;
 
-import java.math.BigDecimal;
-import java.time.Duration;
 
-
-//TODO: HANDLE Exception
+//TODO: HANDLE Exception Globally
 //TODO: Document API with swagger
+    //TODO:ADD OTHER ENDPOINTS- REMOVE ITEM, DELETE .....
 @RestController
+@AllArgsConstructor
 @RequestMapping("/api/cart")
+@Tag(name = "Cart Item Operations", description = "Manage items within a cart using session token")
 public class CartController {
+    private final CartServiceImpl cartService;
+    private final CartMapper cartMapper;
 
 
-  public final CartServiceImpl cartService; // service injection for business logic
+    @Operation(summary = "Add item to cart")
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "Item added successfully"),
+            @ApiResponse(responseCode = "404", description = "Cart or product not found")
+    })
 
-  public CartController(CartServiceImpl cartService) {  // constructor injection for better testability
 
-      this.cartService = cartService;
-  }
+    // Add Item to cart
+        @PostMapping("/addItem")
+            public ResponseEntity<CartDTO> addItemToCart(
+                    @RequestHeader("X-Session-Token") String sessionToken,
+                    @RequestBody Map<String, Object> addItem)
+        {
+                Long productId = ((Number) addItem.get("productId")).longValue();
+                Integer quantity = (Integer) addItem.get("quantity");
 
-
-// 1. Create Cart
-@PostMapping
-public ResponseEntity<Cart> createCart(@RequestParam String sessionToken) {
-    Cart cart = cartService.createCart(sessionToken);
-    return ResponseEntity.status(HttpStatus.CREATED).body(cart);
-
-}
+                CartDTO item = cartService.addItemToCart(sessionToken, productId, quantity);
+                return ResponseEntity.ok(item);
+            }
 
     // Fetch Cart by Session Token
-    @GetMapping("/session/{sessionToken}")
-    public ResponseEntity<Cart> fetchBySessionToken(@PathVariable String sessionToken) {
-        Cart cart = cartService.getCartBySessionToken(sessionToken);
-//                .orElseThrow(() -> new CartNotFoundException(sessionToken));
-        return ResponseEntity.ok(cart);
+    @Operation(summary = "Hydrate cart by session token")
+    @GetMapping("/{sessionToken}")
+    public ResponseEntity<CartDTO> fetchCart(@PathVariable String sessionToken) {
+        CartDTO hydratedCart = cartService.fetchCart(sessionToken); // match update flow
+        return ResponseEntity.ok(hydratedCart);
     }
 
-    // Assign Cart to User Session
-    @PatchMapping("/session")
-    public ResponseEntity<Cart> assignCartToUserSession(@RequestHeader("X-Session-Token") String sessionToken)
-    {
-        Cart cart = cartService.assignCartToUserSession(sessionToken);
-        return ResponseEntity.ok(cart);
-    }
-
-    // Calculate Cart Total
-    @GetMapping("/{sessionToken}/total")
-    public ResponseEntity<BigDecimal> calculateCartTotal(@PathVariable String sessionToken) {
-        BigDecimal total = cartService.calculateCartTotal(sessionToken);
-        return ResponseEntity.ok(total);
-    }
-
-    // Check if Cart is Inactive
-    @GetMapping("/{sessionToken}/inactive")
-    public ResponseEntity<Boolean> isCartInactive(
+    @Operation(summary = "Update quantity of a cart item by product ID")
+    @PutMapping("/{sessionToken}/item/{productId}")
+    public ResponseEntity<CartDTO> updateItemQuantity(
             @PathVariable String sessionToken,
-            @RequestParam long thresholdSeconds) {
-        boolean inactive = cartService.isCartInactive(sessionToken, Duration.ofSeconds(thresholdSeconds));
-        return ResponseEntity.ok(inactive);
-    }
+            @PathVariable Long productId,
+            @RequestBody Map<String, Integer> request,
+            @RequestHeader(value = "X-Session-Token", required = false) String headerToken) {
 
-    // Checkout Cart
-    @PostMapping("/{sessionToken}/checkout")
-    public ResponseEntity<Cart> checkoutCart(@PathVariable String sessionToken) {
-        Cart cart = cartService.checkoutCart(sessionToken);
-        return ResponseEntity.ok(cart);
-    }
+        Integer quantity = request.get("quantity");
 
-    @PatchMapping("/update")
-    public ResponseEntity<Cart> updateCart(@RequestBody Cart cart) {
-        Cart updatedCart = cartService.updateCart(cart);
+        if (quantity == null) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        CartDTO updatedCart = cartService.updateItemQuantity(sessionToken, productId, quantity);
         return ResponseEntity.ok(updatedCart);
     }
 
-    @PostMapping("/clear")
-    public ResponseEntity<Cart> clearCart(@RequestBody Cart cart) {
-        Cart clearedCart = cartService.clearCart(cart);
-        return ResponseEntity.ok(clearedCart);
-    }
+//REMOVE item by PRODUCT ID
+@DeleteMapping("/{sessionToken}/item/{productId}")
+public ResponseEntity<CartDTO> removeItem(
+        @PathVariable String sessionToken,
+        @PathVariable Long productId,
+        @RequestHeader(value = "X-Session-Token", required = false) String headerToken) {
 
-    @DeleteMapping("/{sessionToken}")
-    public ResponseEntity<Void> deleteCart(@PathVariable String sessionToken) {
-        cartService.deleteCart(sessionToken);
-        return ResponseEntity.noContent().build();
-    }
+    System.out.println("🗑️ Removing product: " + productId + " from session: " + sessionToken);
 
+    // return updated CartDTO
+    CartDTO updatedCart = cartService.removeItemFromCart(sessionToken, productId);
 
+    System.out.println("Cart after removal: " + updatedCart.getItems().size() + " items");
+
+    return ResponseEntity.ok(updatedCart);
+}
 }
 
+//    @DeleteMapping("/{sessionToken}/deleteItem/{id}")
+//    public ResponseEntity<CartDTO> removeItemFromCart(
+//            @PathVariable String sessionToken,
+//            @PathVariable Long id) {
+//        CartDTO itemRemoved = cartService.removeItemFromCart(sessionToken, id);
+//        return ResponseEntity.ok(itemRemoved);
+//    }
+
+//    @Operation(summary = "Clear all cart")
+//    @DeleteMapping("/{sessionToken}/clearCartItems")
+//    public ResponseEntity<CartDTO> clearCart(@PathVariable String sessionToken) {
+//        CartDTO clearedCart = cartService.clearCart(sessionToken);
+//        return ResponseEntity.ok(clearedCart);
+//    }
 

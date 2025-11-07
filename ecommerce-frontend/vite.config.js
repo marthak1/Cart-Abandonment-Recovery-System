@@ -9,4 +9,9 @@ export default defineConfig({
     globals: true,         // optional: Jest-like global APIs
     setupFiles: './src/setupTests.js', // optional: for global setup (see below)
   },
+    server: {
+        proxy: {
+            '/cartItems': 'http://localhost:8080',
+        },
+    },
 })

@@ -16,5 +16,12 @@ public class WebConfig {
                         .allowedMethods("*");
             }
         };
+//         @Override
+// public void addResourceHandlers(ResourceHandlerRegistry registry) {
+//     registry.addResourceHandler("/static/**")
+//             .addResourceLocations("classpath:/static/");
+
+
+
     }
 }

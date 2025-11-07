@@ -1,54 +1,36 @@
 package com.shop.ecommerce_backend.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+
+import java.math.BigDecimal;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.math.BigDecimal;
 
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name="cart_item")
+@Table(name="cart_item" , uniqueConstraints = @UniqueConstraint(columnNames = {"cart_id", "product_id"}))
 public class CartItem {
 @Id
 @GeneratedValue (strategy=GenerationType.IDENTITY)
 private Long id;
-@ManyToOne
+@Column(nullable = false)
+private BigDecimal price;
+private int quantity;
+@ManyToOne(fetch = FetchType.EAGER)
+//@JsonIgnore // optional, if product causes recursion
 @JoinColumn(name="product_id", nullable=false)
-
 private Product product;
-
-    private int quantity;
-
-    private BigDecimal price;
-
-
 @ManyToOne
+//@JsonIgnore // prevents cart → items → cart loop
 @JoinColumn(name="cart_id", nullable=false)
 private Cart cart;
 
-
-
-//public CartItem() {}
-
-//public CartItem(Long id, Product product, int quantity,BigDecimal price, Cart cart) {
-//    this.id = id;
-//    this.product = product;
-//    this.quantity = quantity;
-//    this.price = price;
-//    this.cart = cart;
-//
-//}
 
 }

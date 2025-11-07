@@ -1,6 +1,7 @@
 package com.shop.ecommerce_backend.model;
 import java.math.BigDecimal;
 import java.util.List;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,30 +25,17 @@ public class Product {
     @Id
     @GeneratedValue (strategy=GenerationType.IDENTITY)
     private Long id;
-
-
-
     private String name;
 
     @Column(columnDefinition="TEXT")
     private String description;
-
     private BigDecimal price;
-
     private String imageUrl;
 
     @OneToMany(mappedBy = "product")
+//   @JsonIgnore // prevents cartItems from being serialized, (used for now : considering using of DTO)
     private List<CartItem> cartItems;
-    // Constructors, getters, and setters
-//    public Product() {}
-//    public Product(Long id, String name, String description, BigDecimal price, String imageUrl, List<CartItem> cartItems) {
-//        this.id = id;
-//        this.name = name;
-//        this.description = description;
-//        this.price = price;
-//        this.imageUrl = imageUrl;
-//        this.cartItems = cartItems;
-//    }
+
 
 
 }

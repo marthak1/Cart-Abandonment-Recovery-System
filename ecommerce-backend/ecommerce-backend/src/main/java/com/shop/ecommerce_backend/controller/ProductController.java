@@ -1,6 +1,8 @@
 package com.shop.ecommerce_backend.controller;
 
 import java.util.List;
+
+import com.shop.ecommerce_backend.DTO.ProductDTO;
 import com.shop.ecommerce_backend.service.ProductServiceImp;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -19,27 +21,25 @@ public class ProductController {
       this.productService=productService;
   }
 
-  @GetMapping
-  public ResponseEntity<List<Product>> getAll() {
-          List <Product> allProducts = productService.getAllProducts();
-      return ResponseEntity.status(HttpStatus.OK)
-                           .body((allProducts));
-  }
-
-
-  @GetMapping("/{id}")
-  public ResponseEntity<Product> getById(@PathVariable Long id) {
-      Product product = productService.getProductById(id)
-              .orElseThrow(() -> new RuntimeException("product not found"));
-                      //ProductNotFoundException(id)); -> USE THIS FOR GLOBAL EXCEPTION
-      return ResponseEntity.ok(product);
-  }
-
     @PostMapping
     public ResponseEntity<Product> createProduct(@RequestBody Product newProduct) {
-       Product product = productService.createProduct(newProduct);
-       return ResponseEntity.status(HttpStatus.CREATED).body(product);
-  }
+        Product product = productService.createProduct(newProduct);
+        return ResponseEntity.status(HttpStatus.CREATED).body(product);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<ProductDTO>> getAllProducts() {
+        List<ProductDTO> products = productService.getAllProducts();
+        return ResponseEntity.ok(products);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id) {
+        ProductDTO product = productService.getProductById(id);
+        return ResponseEntity.ok(product);
+    }
+
+
   @PutMapping("/{id}")
   public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
       Product product = productService.updateProduct(id, updatedProduct);
@@ -53,3 +53,18 @@ public class ProductController {
   }
 
 }
+//  @GetMapping
+//  public ResponseEntity<List<Product>> getAllProducts() {
+//          List <Product> allProducts = productService.getAllProducts();
+//      return ResponseEntity.status(HttpStatus.OK)
+//                           .body((allProducts));
+//  }
+
+
+//  @GetMapping("/{id}")
+//  public ResponseEntity<Product> getProductById(@PathVariable Long id) {
+//      Product product = productService.getProductById(id)
+//              .orElseThrow(() -> new RuntimeException("product not found"));
+//                      //ProductNotFoundException(id)); -> USE THIS FOR GLOBAL EXCEPTION
+//      return ResponseEntity.ok(product);
+//  }
