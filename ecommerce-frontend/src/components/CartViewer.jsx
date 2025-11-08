@@ -168,7 +168,11 @@ const CartViewer = () => {
                             <div className="space-y-2 mb-4">
                                 <div className="flex justify-between text-gray-700">
                                     <span>Subtotal ({cartItems.length} items)</span>
-                                    <span className="font-medium">£{cartTotal.toFixed(2)}</span>
+                                    {/*<span className="font-medium">£{cartTotal.toFixed(2)}</span>*/}
+                                    <span className="font-medium">
+  £{typeof cartTotal === "number" ? cartTotal.toFixed(2) : "0.00"}
+</span>
+
                                 </div>
                                 <div className="flex justify-between text-gray-700">
                                     <span>Shipping</span>
@@ -180,7 +184,7 @@ const CartViewer = () => {
                             <div className="flex justify-between items-center py-4 bg-gradient-to-r from-purple-50 to-blue-50 rounded-lg px-4 mb-6">
                                 <span className="text-xl font-bold text-gray-900">Total:</span>
                                 <span className="text-2xl font-bold text-purple-600">
-                  £{cartTotal?.toFixed(2)}
+                 £{typeof cartTotal === "number" ? cartTotal.toFixed(2) : "0.00"}
                 </span>
                             </div>
 

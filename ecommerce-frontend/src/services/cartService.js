@@ -1,46 +1,48 @@
-import api from "../api/api.js";
 // Cart Service API calls: Create, Fetch, Update, Clear, Delete, Checkout, etc.
-export const fetchCart = async (sessionToken) => {
-    try {
-        const response = await api.get(`/cart/${sessionToken}`, {
-            headers: {
-                "X-Session-Token": String(sessionToken),
-            },
-        });
-
-        return {
-            success: true,
-            data: response.data,
-        };
-    } catch (error) {
-        console.error("Fetch cart failed:", error?.response?.data || error.message);
-        return {
-            success: false,
-            error: error?.response?.data?.message || "Unknown error",
-        };
-    }
-};
-
+import api from "../api/api.js";
 export const addItemToCart = async (sessionToken, productId, quantity = 1) => {
-    console.log(typeof productId, productId);
-    const payload = {
-        productId: productId.id || productId,
-        quantity,
-    };
-
     try {
+        console.log("Adding to cart:", { sessionToken, productId, quantity });
+
+        const payload = {
+            productId: productId.id || productId,
+            quantity,
+        };
+
         const response = await api.post(`/cart/addItem`, payload, {
             headers: {
                 "X-Session-Token": String(sessionToken),
             },
         });
 
-        // Backend should return: { items: [...], total: 0 }
-        return response.data;
+        console.log("Add to cart response:", response.data);
+
+        // Backend returns complete CartDTO
+        return response.data; // { items: [...], total: 0 }
 
     } catch (error) {
         console.error("Add to cart failed:", error?.response?.data || error.message);
-        throw error; // Let caller handle the error
+        throw error;
+    }
+};
+
+export const fetchCart = async (sessionToken) => {
+    try {
+        console.log("Fetching cart for session:", sessionToken);
+
+        const response = await api.get(`/cart/${sessionToken}`, {
+            headers: {
+                "X-Session-Token": String(sessionToken),
+            },
+        });
+
+        console.log("Fetch cart response:", response.data);
+
+        return response.data;
+
+    } catch (error) {
+        console.error(" Fetch cart failed:", error?.response?.data || error.message);
+        throw error;
     }
 };
 /**
@@ -73,7 +75,7 @@ export const updateItemQuantity = async (sessionToken, productId, quantity) => {
 
 export const removeItemFromCart = async (sessionToken, productId) => {
     try {
-        console.log("🗑️ Removing item:", { sessionToken, productId });
+        console.log("Removing item:", { sessionToken, productId });
 
         const response = await api.delete(
             `/cart/${sessionToken}/item/${productId}`,
@@ -94,6 +96,25 @@ export const removeItemFromCart = async (sessionToken, productId) => {
         throw error;
     }
 };
+
+export const clearCartAPI = async (sessionToken) => {
+    try {
+        // const response = await api.delete(`/${sessionToken}/clearCartItems`);
+        const response = await api.delete(
+            `/cart/${sessionToken}/clearCartItems`,
+            {
+                headers: {
+                    "X-Session-Token": sessionToken
+                },
+            }
+        );
+        return { success: true, data: response.data };
+    } catch (error) {
+        console.error("[Clear Cart Error]", error?.message || error);
+        return { success: false, error };
+    }
+};
+
 /**
  * Calculate cart total — expects sessionToken as path param
  * GET /cart/{sessionToken}/total
@@ -127,21 +148,18 @@ export const isCartInactive = async (sessionToken, thresholdSeconds) => {
     });
 };
 
-export const clearCartAPI = async (sessionToken) => {
-    await api.post("/cart/clearCart", sessionToken);
-    return { items: [], total: 0 }; // Return empty cart
-};
+
 
 // Delete Cart
-export const deleteCartAPI = async (sessionToken) => {
-    try {
-        await api.delete(`/cart/${sessionToken}/delete`);
-        return true; // Cart deleted
-    } catch (error) {
-        console.error("Failed to delete cart:", error.message || error);
-        throw new Error("Could not delete cart.");
-    }
-};
+//export const deleteCartAPI = async (sessionToken) => {
+//    try {
+//        await api.delete(`/cart/${sessionToken}/delete`);
+//        return true; // Cart deleted
+//    } catch (error) {
+//        console.error("Failed to delete cart:", error.message || error);
+//        throw new Error("Could not delete cart.");
+//    }
+//};
 
 /**
  * Checkout cart — expects sessionToken as path param
@@ -150,6 +168,7 @@ export const deleteCartAPI = async (sessionToken) => {
 // export const checkoutCart = async (sessionToken) => {
 //   return api.post(`/cart/${sessionToken}/checkout`);
 // };
+
 
 
 

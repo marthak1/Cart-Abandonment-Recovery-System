@@ -33,18 +33,25 @@ public class CartController {
 
     // Add Item to cart
         @PostMapping("/addItem")
-            public ResponseEntity<CartDTO> addItemToCart(
-                    @RequestHeader("X-Session-Token") String sessionToken,
-                    @RequestBody Map<String, Object> addItem)
-        {
-                Long productId = ((Number) addItem.get("productId")).longValue();
-                Integer quantity = (Integer) addItem.get("quantity");
+    public ResponseEntity<CartDTO> addItem(
+            @RequestBody Map<String, Object> request,
+            @RequestHeader("X-Session-Token") String sessionToken) {
 
-                CartDTO item = cartService.addItemToCart(sessionToken, productId, quantity);
-                return ResponseEntity.ok(item);
-            }
+        Long productId = ((Number) request.get("productId")).longValue();
+        Integer quantity = (Integer) request.getOrDefault("quantity", 1);
 
-    // Fetch Cart by Session Token
+        System.out.println("Adding item - Session: " + sessionToken + ", Product: " + productId);
+
+        // Add item and get complete updated cart
+        CartDTO cart = cartService.addItemToCart(sessionToken, productId, quantity);
+
+        System.out.println("Cart after add: " + cart.getItems().size() + " items, Total: " + cart.getTotal());
+
+        // return complete CartDTO with all items
+        return ResponseEntity.ok(cart);
+    }
+
+        // Fetch Cart by Session Token
     @Operation(summary = "Hydrate cart by session token")
     @GetMapping("/{sessionToken}")
     public ResponseEntity<CartDTO> fetchCart(@PathVariable String sessionToken) {
@@ -77,7 +84,7 @@ public ResponseEntity<CartDTO> removeItem(
         @PathVariable Long productId,
         @RequestHeader(value = "X-Session-Token", required = false) String headerToken) {
 
-    System.out.println("🗑️ Removing product: " + productId + " from session: " + sessionToken);
+    System.out.println("Removing product: " + productId + " from session: " + sessionToken);
 
     // return updated CartDTO
     CartDTO updatedCart = cartService.removeItemFromCart(sessionToken, productId);
@@ -86,6 +93,13 @@ public ResponseEntity<CartDTO> removeItem(
 
     return ResponseEntity.ok(updatedCart);
 }
+    @Operation(summary = "Clear all cart")
+    @DeleteMapping("/{sessionToken}/clearCartItems")
+    public ResponseEntity<CartDTO> clearCartData(@PathVariable String sessionToken) {
+        CartDTO clearedCart = cartService.clearCart(sessionToken);
+        return ResponseEntity.ok(clearedCart);
+    }
+
 }
 
 //    @DeleteMapping("/{sessionToken}/deleteItem/{id}")
@@ -96,10 +110,4 @@ public ResponseEntity<CartDTO> removeItem(
 //        return ResponseEntity.ok(itemRemoved);
 //    }
 
-//    @Operation(summary = "Clear all cart")
-//    @DeleteMapping("/{sessionToken}/clearCartItems")
-//    public ResponseEntity<CartDTO> clearCart(@PathVariable String sessionToken) {
-//        CartDTO clearedCart = cartService.clearCart(sessionToken);
-//        return ResponseEntity.ok(clearedCart);
-//    }
 

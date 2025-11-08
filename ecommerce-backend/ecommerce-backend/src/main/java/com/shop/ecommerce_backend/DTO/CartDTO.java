@@ -17,7 +17,7 @@ public class CartDTO {
     private BigDecimal total;
     LocalDateTime createdAt;
     LocalDateTime lastUpdated;
-    private String status;
-
+//    private String status;
+    private boolean recoveryFlag;
 }
 

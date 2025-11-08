@@ -11,6 +11,7 @@ public interface ICartService {
     CartDTO fetchCart(String sessionToken);
     CartDTO removeItemFromCart(String sessionToken, Long productId);
     CartDTO updateItemQuantity(String sessionToken, Long productId, Integer quantity);
+    CartDTO clearCart(String sessionToken);
 }
 
 

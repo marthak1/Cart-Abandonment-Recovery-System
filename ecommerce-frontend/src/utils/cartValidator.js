@@ -13,6 +13,8 @@ export const isValidCart = (cart) => {
         console.warn("Cart.total is not a number:", cart.total);
         // Still return true as this might be optional
     }
+    if(cart.items.length === 1)
+        console.warn(`Cart is empty array`);
 
     return true;
 };

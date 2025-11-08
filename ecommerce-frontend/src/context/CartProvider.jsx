@@ -66,8 +66,6 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-
-
     // Update quantity
     const updateQuantity = async (productId, quantity) => {
         try {
@@ -99,7 +97,7 @@ export const CartProvider = ({ children }) => {
             return;
         }
 
-        console.log("🗑️ Removing item with productId:", productId);
+        console.log("Removing item with productId:", productId);
 
         try {
             // Optimistic UI update - Remove immediately
@@ -134,30 +132,26 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Clear cart
     const clearCart = async () => {
-        // 1. Optimistically clear cart
-        setCartItems([]);
-        setCartTotal(0);
+        if (!sessionToken) return;
 
         try {
-            // 2. Confirm with backend
-            const res = await clearCartAPI({ sessionToken, items: [] });
-
-            // 3. Reconcile
-            setCartItems(res.data.items);
-            setCartTotal(res.data.total);
-        } catch (err) {
-            console.error("Failed to clear cart:", err);
-            await hydrateCart(); // rollback
+            setCartItems([]);
+            setCartTotal(0);
+            // Call backend clear cart API
+            await clearCartAPI(sessionToken);
+        } catch (error) {
+            console.error('Failed to clear cart:', error);
+            await hydrateCart();
         }
     };
 
 
-    //
-    // useEffect(() => {
-    //
-    // }, []);
+
+
+    useEffect(() => {
+
+    }, []);
 
 
 
@@ -184,3 +178,5 @@ export const CartProvider = ({ children }) => {
         </CartContext.Provider>
     );
 };
+
+

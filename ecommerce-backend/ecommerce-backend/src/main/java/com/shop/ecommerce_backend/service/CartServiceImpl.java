@@ -3,6 +3,7 @@ package com.shop.ecommerce_backend.service;
 import java.math.BigDecimal;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 import com.shop.ecommerce_backend.DTO.CartDTO;
 import com.shop.ecommerce_backend.DTO.CartMapper;
@@ -13,6 +14,7 @@ import com.shop.ecommerce_backend.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import com.shop.ecommerce_backend.model.Cart;
 import com.shop.ecommerce_backend.repository.CartRepository;
@@ -35,37 +37,63 @@ public class CartServiceImpl implements ICartService {
     @Override
     @Transactional
     public CartDTO addItemToCart(String sessionToken, Long productId, Integer quantity) {
+        System.out.println("Finding cart for session: " + sessionToken);
+
+        // Find or create cart
         Cart cart = cartRepository.findBySessionToken(sessionToken)
                 .orElseGet(() -> {
+                    System.out.println("Creating new cart for session: " + sessionToken);
                     Cart newCart = new Cart();
                     newCart.setSessionToken(sessionToken);
-                    newCart.setCreatedAt(LocalDateTime.now());
-                    newCart.setLastUpdated(LocalDateTime.now());
+                    newCart.setStatus(Cart.CartStatus.valueOf("ACTIVE"));
                     return cartRepository.save(newCart);
                 });
 
+        // Find product
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Product not found: " + productId
+                ));
 
-        Optional<CartItem> existingItem = cartItemRepository.findByCartAndProductId(cart, productId);
+        // Check if item already exists in cart
+        Optional<CartItem> existingItem = cart.getItems().stream()
+                .filter(item -> item.getProduct().getId().equals(productId))
+                .findFirst();
 
         if (existingItem.isPresent()) {
+            // Update quantity
             CartItem item = existingItem.get();
             item.setQuantity(item.getQuantity() + quantity);
             cartItemRepository.save(item);
+            System.out.println("Updated existing item, new quantity: " + item.getQuantity());
         } else {
+            // Add new item
             CartItem newItem = new CartItem();
+            newItem.setCart(cart);
             newItem.setProduct(product);
             newItem.setQuantity(quantity);
-            newItem.setCart(cart);
             newItem.setPrice(product.getPrice());
+
             cartItemRepository.save(newItem);
+            cart.getItems().add(newItem);
+            System.out.println("Added new item to cart");
         }
 
+        // Update cart timestamp
         cart.setLastUpdated(LocalDateTime.now());
-        Cart updatedCart = cartRepository.findBySessionToken(sessionToken).get();
-        CartDTO dto = cartMapper.toDTO(updatedCart); //map updated cart to dto
-        dto.setTotal(calculateTotal(updatedCart)); // inject total
+        cartRepository.save(cart);
+
+        // Reload cart to ensure all relationships are loaded
+        cart = cartRepository.findBySessionToken(sessionToken)
+                .orElseThrow(() -> new RuntimeException("Cart not found after add"));
+
+        System.out.println("Final cart has " + cart.getItems().size() + " items");
+
+        // Convert to DTO with all items
+        CartDTO dto = cartMapper.toDTO(cart);
+        dto.setTotal(calculateTotal(cart));
+
         return dto;
     }
     @Override
@@ -78,8 +106,8 @@ public class CartServiceImpl implements ICartService {
 
         CartDTO dto = cartMapper.toDTO(cart);
         dto.setTotal(calculateTotal(cart)); // inject recalculated total
-        String status = cart.getItems().isEmpty() ? "EMPTY" : "ACTIVE";
-        dto.setStatus(status);
+//        String status = cart.getItems().isEmpty() ? "EMPTY" : "ACTIVE";
+//        dto.setStatus(status);
         return dto;
     }
     @Override
@@ -92,7 +120,7 @@ public class CartServiceImpl implements ICartService {
                         "Cart not found"
                 ));
 
-        System.out.println("🔍 Looking for product " + productId + " in " + cart.getItems().size() + " items");
+        System.out.println("Looking for product " + productId + " in " + cart.getItems().size() + " items");
 
         // Find and remove the item
         CartItem itemToRemove = cart.getItems().stream()
@@ -103,7 +131,7 @@ public class CartServiceImpl implements ICartService {
                         "Product " + productId + " not found in cart"
                 ));
 
-        System.out.println("🗑️ Removing item: " + itemToRemove.getId());
+        System.out.println("Removing item: " + itemToRemove.getId());
 
         // Remove from collection first
         cart.getItems().remove(itemToRemove);
@@ -184,20 +212,46 @@ public CartDTO updateItemQuantity(String sessionToken, Long productId, Integer q
         cartRepository.delete(cart);
     }
 
+@Override
+public boolean isCartInactive(String sessionToken, Duration threshold) {
+    Cart cart = cartRepository.findBySessionToken(sessionToken)
+            .orElseThrow(() -> new RuntimeException("Cart not found"));
 
-    //Trigger recovery modal if cart is inactive
-    @Override
-    public boolean isCartInactive(String sessionToken, Duration threshold) {
-        Cart cart = cartRepository.findBySessionToken(sessionToken).orElseThrow();
-        LocalDateTime cutoff = LocalDateTime.now().minus(threshold);
-        return !cart.isCheckedOut() && cart.getLastUpdated().isBefore(cutoff);
+    LocalDateTime cutoff = LocalDateTime.now().minus(threshold);
 
+    if (cart.getStatus() == Cart.CartStatus.ACTIVE && cart.getLastUpdated().isBefore(cutoff)) {
+        cart.setStatus(Cart.CartStatus.ABANDONED);
+        cart.setRecoveryFlag(true); // frontend modal trigger
+        cartRepository.save(cart);
+        return true;
     }
-    @Transactional
-    public void clearAllCartData() {
-        cartItemRepository.deleteAll(); // delete items first to avoid FK constraint
-        cartRepository.deleteAll();     // then delete carts
+
+    return false;
+}
+    @Scheduled(fixedRate = 3600000) // every hour
+    public void detectAbandonedCarts() {
+        List<Cart> activeCarts = cartRepository.findByStatus(Cart.CartStatus.ACTIVE);
+
+        for (Cart cart : activeCarts) {
+            boolean markedAbandoned = isCartInactive(cart.getSessionToken(), Duration.ofHours(2));
+            if (markedAbandoned) {
+                System.out.println("Cart marked as abandoned: " + cart.getSessionToken());
+            }
+        }
     }
+
+@Transactional
+public CartDTO clearCart(String sessionToken) {
+    Cart cart = cartRepository.findBySessionToken(sessionToken)
+        .orElseThrow(() -> new RuntimeException("Cart not found"));
+
+    cartItemRepository.deleteAllByCart(cart); // custom method
+    cart.setLastUpdated(LocalDateTime.now());
+    cartRepository.save(cart);
+
+    return cartMapper.toDTO(cart);
+}
+
 
 }
 

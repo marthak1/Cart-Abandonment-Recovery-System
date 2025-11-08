@@ -18,7 +18,8 @@ public class CartMapper {
         dto.setSessionToken(cart.getSessionToken());
         dto.setCreatedAt(cart.getCreatedAt());
         dto.setLastUpdated(cart.getLastUpdated());
-        dto.setStatus(cart.getStatus());
+
+//        dto.setStatus(cart.getStatus());
 
         // Map items with product details
         if (cart.getItems() != null) {
