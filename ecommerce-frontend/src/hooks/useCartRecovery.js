@@ -1,62 +1,48 @@
 import { useState, useEffect, useCallback } from 'react';
-// import { useContext } from 'react';
-// import { CartContext } from '../context/CartContext.jsx';
+import { checkRecoveryStatus, dismissRecovery, markCartRecovered } from '../services/cartService';
 
 export const useCartRecovery = (sessionToken, cartItems) => {
     const [showRecoveryModal, setShowRecoveryModal] = useState(false);
-    const [lastActivity, setLastActivity] = useState(Date.now());
-    const [isInactive, setIsInactive] = useState(false);
 
-    const INACTIVITY_TIMEOUT = 5 * 60 * 1000; // 5 minutes in milliseconds
-
-    // Reset activity timer
-    const resetActivity = useCallback(() => {
-        setLastActivity(Date.now());
-        setIsInactive(false);
-    }, []);
-
-// Track user activity
+    //  Poll backend every 10 seconds to check recovery flag
     useEffect(() => {
-        const events = ['mousedown', 'keydown', 'scroll', 'touchstart', 'mousemove'];
+        if (!sessionToken || cartItems.length === 0) return;
 
-        const handleActivity = () => {
-            resetActivity();
-        };
+        const checkRecovery = async () => {
+            const status = await checkRecoveryStatus(sessionToken);
 
-        events.forEach(event => {
-            window.addEventListener(event, handleActivity, { passive: true });
-        });
-
-        return () => {
-            events.forEach(event => {
-                window.removeEventListener(event, handleActivity);
-            });
-        };
-    }, [resetActivity]);
-
-// Check for inactivity
-    useEffect(() => {
-        const checkInactivity = setInterval(() => {
-            const timeSinceLastActivity = Date.now() - lastActivity;
-
-            if (timeSinceLastActivity >= INACTIVITY_TIMEOUT && cartItems.length > 0 && !isInactive) {
-                setIsInactive(true);
+            if (status.showRecoveryModal && status.hasItems) {
+                console.log("Backend flagged cart for recovery - showing modal");
                 setShowRecoveryModal(true);
             }
-        }, 1000); // Check every second
+        };
 
-        return () => clearInterval(checkInactivity);
-    }, [lastActivity, cartItems, isInactive]);
+        // Check immediately
+        checkRecovery();
 
-    const closeModal = () => {
+        // Then check every 10 seconds
+        const interval = setInterval(checkRecovery, 10000);
+
+        return () => clearInterval(interval);
+    }, [sessionToken, cartItems]);
+
+    // Handle modal dismiss
+    const handleDismiss = useCallback(async () => {
         setShowRecoveryModal(false);
-        resetActivity();
-    };
+        await dismissRecovery(sessionToken);
+        console.log("Recovery modal dismissed");
+    }, [sessionToken]);
+
+    // Handle user proceeding to checkout
+    const handleProceed = useCallback(async () => {
+        setShowRecoveryModal(false);
+        await markCartRecovered(sessionToken);
+        console.log("Cart marked as recovered");
+    }, [sessionToken]);
 
     return {
         showRecoveryModal,
-        closeModal,
-        resetActivity,
-        timeUntilInactive: Math.max(0, INACTIVITY_TIMEOUT - (Date.now() - lastActivity))
+        handleDismiss,
+        handleProceed
     };
 };

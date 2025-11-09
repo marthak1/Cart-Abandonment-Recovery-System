@@ -24,4 +24,11 @@ public interface CartRepository extends JpaRepository<Cart, Long> {
     List<Cart> findByStatus(Cart.CartStatus status);
 
 //    Optional<Cart> findBySessionToken(String sessionToken);
+
+    @Query("SELECT c FROM Cart c LEFT JOIN FETCH c.items i LEFT JOIN FETCH i.product WHERE c.sessionToken = :sessionToken")
+    Optional<Cart> findBySessionTokenWithItems(String sessionToken);
+
+    // Find carts that haven't been updated in X time
+    @Query("SELECT c FROM Cart c WHERE c.status = :status AND c.lastUpdated < :cutoff")
+    List<Cart> findInactiveCarts(Cart.CartStatus status, LocalDateTime cutoff);
 }

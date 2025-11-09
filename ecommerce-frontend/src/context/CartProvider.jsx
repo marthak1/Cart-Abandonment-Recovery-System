@@ -1,7 +1,7 @@
 // // //This file provides the CartProvider component that uses CartContext to manage cart state and actions.
 // // //context setup for cart state management and operations
 
-import React, {useCallback, useEffect, useState} from "react"; //useMemo,
+import React, { useCallback, useEffect, useState } from "react";
 import { CartContext } from "./CartContext.jsx";
 import { getSessionToken } from "../utils/session.js";
 import { updateLastCartActivity } from "../utils/updateCartActivity.js";
@@ -10,18 +10,23 @@ import {
     fetchCart,
     updateItemQuantity,
     removeItemFromCart,
-    clearCartAPI
+    clearCartAPI,
+    dismissRecovery,
+    markCartRecovered
 } from "../services/cartService.js";
-import {isValidCart} from "../utils/cartValidator.js";
+import { isValidCart } from "../utils/cartValidator.js";
 
 export const CartProvider = ({ children }) => {
     const [cartItems, setCartItems] = useState([]);
     const [cartTotal, setCartTotal] = useState(0);
     const [loading, setLoading] = useState(false);
     const [cartStatus, setCartStatus] = useState("EMPTY");
+    const [recoveryFlag, setRecoveryFlag] = useState(false);
+    const [showRecoveryModal, setShowRecoveryModal] = useState(false);
+
     const sessionToken = getSessionToken();
 
-// Load cart from backend
+    // Load cart from backend
     const hydrateCart = useCallback(async () => {
         if (!sessionToken) return;
 
@@ -29,21 +34,87 @@ export const CartProvider = ({ children }) => {
             setLoading(true);
             const cart = await fetchCart(sessionToken);
 
-            console.log("💧 Hydrated cart:", cart);
+            console.log("Hydrated cart:", {
+                items: cart.items?.length,
+                total: cart.total,
+                status: cart.status,
+                recoveryFlag: cart.recoveryFlag
+            });
 
-            setCartItems(cart.items || []);
-            setCartTotal(cart.total || 0);
+            setCartItems(cart.items ?? []);
+            setCartTotal(cart.total ?? 0);
+            setCartStatus(cart.status ?? "ACTIVE");
+            setRecoveryFlag(cart.recoveryFlag ?? false);
+
+            //Show modal if recovery flag is true and cart has items
+            if (cart.recoveryFlag && cart.items?.length > 0) {
+                console.log("Recovery flag detected - showing modal");
+                setShowRecoveryModal(true);
+            }
+
+            updateLastCartActivity();
+
+            return cart;
         } catch (error) {
-            console.error('Failed to hydrate cart:', error);
+            console.error("Cart hydration error:", error);
+            setRecoveryFlag(false);
+            return { items: [], total: 0, status: "ERROR" };
         } finally {
             setLoading(false);
         }
     }, [sessionToken]);
 
+    // Poll for recovery flag every 10 seconds
+    useEffect(() => {
+        if (!sessionToken || cartItems.length === 0) return;
+
+        console.log("Starting recovery flag polling...");
+
+        // Check immediately
+        hydrateCart();
+
+        // Then poll every 10 seconds
+        const interval = setInterval(() => {
+            console.log("Checking for recovery flag...");
+            hydrateCart();
+        }, 10000); // 10 seconds
+
+        return () => {
+            console.log("Stopping recovery flag polling");
+            clearInterval(interval);
+        };
+    }, [sessionToken, cartItems.length, hydrateCart]);
+
     // Load cart on mount
     useEffect(() => {
         hydrateCart();
     }, [hydrateCart]);
+
+    // Handle modal dismiss
+    const handleDismissRecovery = async () => {
+        console.log("User dismissed recovery modal");
+        setShowRecoveryModal(false);
+        setRecoveryFlag(false);
+
+        try {
+            await dismissRecovery(sessionToken);
+        } catch (error) {
+            console.error("Failed to dismiss recovery:", error);
+        }
+    };
+
+    // Handle proceed to checkout
+    const handleProceedToCheckout = async () => {
+        console.log("User proceeding to checkout from recovery modal");
+        setShowRecoveryModal(false);
+        setRecoveryFlag(false);
+
+        try {
+            await markCartRecovered(sessionToken);
+        } catch (error) {
+            console.error("Failed to mark cart as recovered:", error);
+        }
+    };
 
     // Add item
     const addToCart = async (productId, quantity = 1) => {
@@ -52,7 +123,7 @@ export const CartProvider = ({ children }) => {
 
             if (!isValidCart(cart)) {
                 console.warn("Invalid cart structure — triggering rollback.");
-                await hydrateCart(sessionToken);
+                await hydrateCart();
                 return;
             }
 
@@ -62,14 +133,13 @@ export const CartProvider = ({ children }) => {
             updateLastCartActivity();
         } catch (err) {
             console.error("Failed to add item:", err.message || err);
-            await hydrateCart(sessionToken); // rollback
+            await hydrateCart();
         }
     };
 
     // Update quantity
     const updateQuantity = async (productId, quantity) => {
         try {
-            // Optimistic UI update
             setCartItems((prev) =>
                 prev.map((item) =>
                     item.productId === productId ? { ...item, quantity } : item
@@ -77,57 +147,43 @@ export const CartProvider = ({ children }) => {
             );
             updateLastCartActivity();
 
-            // Confirm with backend
             const cart = await updateItemQuantity(sessionToken, productId, quantity);
 
-            // Reconcile with backend
             setCartItems(cart.items || []);
             setCartTotal(cart.total || 0);
             setCartStatus(cart.status || "ACTIVE");
         } catch (err) {
             console.error("Failed to update quantity:", err.message || err);
-            await hydrateCart(); // rollback
+            await hydrateCart();
         }
     };
 
-// Remove item function
+    // Remove item
     const removeItem = async (productId) => {
         if (!sessionToken) {
             console.error("No session token available");
             return;
         }
 
-        console.log("Removing item with productId:", productId);
-
         try {
-            // Optimistic UI update - Remove immediately
             setCartItems(prev => {
                 const filtered = prev.filter(item => {
                     const itemProductId = item.product?.id || item.productId;
                     return itemProductId !== productId;
                 });
-                console.log("Optimistic removal - items left:", filtered.length);
                 return filtered;
             });
 
-            // Call backend API
             const updatedCart = await removeItemFromCart(sessionToken, productId);
 
-            console.log("Backend response:", updatedCart);
-
-            // Sync with backend response (reconciliation)
             if (updatedCart && Array.isArray(updatedCart.items)) {
                 setCartItems(updatedCart.items);
                 setCartTotal(updatedCart.total || 0);
-                console.log("Cart synced - " + updatedCart.items.length + " items remaining");
             } else {
-                console.warn("Invalid response, triggering full refresh");
                 await hydrateCart();
             }
-
         } catch (error) {
             console.error("Failed to remove item:", error);
-            // Rollback by refreshing from backend
             await hydrateCart();
         }
     };
@@ -138,7 +194,6 @@ export const CartProvider = ({ children }) => {
         try {
             setCartItems([]);
             setCartTotal(0);
-            // Call backend clear cart API
             await clearCartAPI(sessionToken);
         } catch (error) {
             console.error('Failed to clear cart:', error);
@@ -146,14 +201,13 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-
-
-
-    useEffect(() => {
-
-    }, []);
-
-
+    const restoreCart = async () => {
+        const token = getSessionToken();
+        const freshCart = await fetchCart(token);
+        setCartItems(freshCart.items ?? []);
+        setCartTotal(freshCart.total ?? 0);
+        setCartStatus(freshCart.status ?? "ACTIVE");
+    };
 
     return (
         <CartContext.Provider
@@ -165,18 +219,17 @@ export const CartProvider = ({ children }) => {
                 addToCart,
                 removeItem,
                 updateQuantity,
+                restoreCart,
                 loading,
-                // checkout,
-               // updateEntireCart,
+                recoveryFlag,
+                showRecoveryModal, // ✅ Expose modal state
+                handleDismissRecovery, // ✅ Expose dismiss handler
+                handleProceedToCheckout, // ✅ Expose proceed handler
                 clearCart,
-              // deleteCart,
-                // checkInactivity,
-               // assignSession,
             }}
         >
             {children}
         </CartContext.Provider>
     );
 };
-
 

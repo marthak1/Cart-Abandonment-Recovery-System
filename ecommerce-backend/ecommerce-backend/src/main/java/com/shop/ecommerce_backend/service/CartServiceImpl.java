@@ -27,6 +27,7 @@ import org.springframework.web.server.ResponseStatusException;
 @Service
 @Slf4j
 @AllArgsConstructor
+@Transactional
 public class CartServiceImpl implements ICartService {
     // Inject repositories
     private final CartRepository cartRepository;
@@ -46,6 +47,8 @@ public class CartServiceImpl implements ICartService {
                     Cart newCart = new Cart();
                     newCart.setSessionToken(sessionToken);
                     newCart.setStatus(Cart.CartStatus.valueOf("ACTIVE"));
+                    newCart.setCreatedAt(LocalDateTime.now());
+                    newCart.setLastUpdated(LocalDateTime.now());
                     return cartRepository.save(newCart);
                 });
 
@@ -211,46 +214,111 @@ public CartDTO updateItemQuantity(String sessionToken, Long productId, Integer q
                 .orElseThrow(() -> new RuntimeException("Cart not found"));
         cartRepository.delete(cart);
     }
-
-@Override
-public boolean isCartInactive(String sessionToken, Duration threshold) {
-    Cart cart = cartRepository.findBySessionToken(sessionToken)
+    @Transactional
+    public CartDTO clearCart(String sessionToken) {
+        Cart cart = cartRepository.findBySessionToken(sessionToken)
             .orElseThrow(() -> new RuntimeException("Cart not found"));
 
-    LocalDateTime cutoff = LocalDateTime.now().minus(threshold);
-
-    if (cart.getStatus() == Cart.CartStatus.ACTIVE && cart.getLastUpdated().isBefore(cutoff)) {
-        cart.setStatus(Cart.CartStatus.ABANDONED);
-        cart.setRecoveryFlag(true); // frontend modal trigger
+        cartItemRepository.deleteAllByCart(cart); // custom method
+        cart.setLastUpdated(LocalDateTime.now());
         cartRepository.save(cart);
-        return true;
+        return cartMapper.toDTO(cart);
     }
 
-    return false;
-}
-    @Scheduled(fixedRate = 3600000) // every hour
-    public void detectAbandonedCarts() {
-        List<Cart> activeCarts = cartRepository.findByStatus(Cart.CartStatus.ACTIVE);
+    // Check if cart is inactive and mark for recovery
+    @Transactional
+    public boolean isCartInactive(String sessionToken, Duration threshold) {
+        Cart cart = cartRepository.findBySessionToken(sessionToken)
+                .orElseThrow(() -> new RuntimeException("Cart not found"));
 
-        for (Cart cart : activeCarts) {
-            boolean markedAbandoned = isCartInactive(cart.getSessionToken(), Duration.ofHours(2));
-            if (markedAbandoned) {
-                System.out.println("Cart marked as abandoned: " + cart.getSessionToken());
+        LocalDateTime cutoff = LocalDateTime.now().minus(threshold);
+
+        // If cart is active but hasn't been updated since cutoff
+        if (cart.getStatus() == Cart.CartStatus.ACTIVE &&
+                cart.getLastUpdated().isBefore(cutoff) &&
+                !cart.getItems().isEmpty()) { // Only mark if cart has items
+
+            cart.setStatus(Cart.CartStatus.ABANDONED);
+            cart.setRecoveryFlag(true); // Signal frontend to show modal
+            cart.setAbandonedAt(LocalDateTime.now());
+            cartRepository.save(cart);
+
+            System.out.println("Cart marked as abandoned: " + cart.getSessionToken());
+            return true;
+        }
+
+        return false;
+    }
+
+    // Reset recovery flag when user interacts
+    @Transactional
+    public void resetRecoveryFlag(String sessionToken) {
+        cartRepository.findBySessionToken(sessionToken).ifPresent(cart -> {
+            cart.setRecoveryFlag(false);
+            cart.setStatus(Cart.CartStatus.ACTIVE);
+            cart.setLastUpdated(LocalDateTime.now());
+            cartRepository.save(cart);
+            System.out.println("Recovery flag reset for: " + sessionToken);
+        });
+    }
+
+    //  Mark cart as recovered when user responds to modal
+    @Transactional
+    public void markCartAsRecovered(String sessionToken) {
+        cartRepository.findBySessionToken(sessionToken).ifPresent(cart -> {
+            cart.setStatus(Cart.CartStatus.RECOVERED);
+            cart.setRecoveryFlag(false);
+            cart.setLastUpdated(LocalDateTime.now());
+            cartRepository.save(cart);
+            System.out.println("Cart recovered: " + sessionToken);
+        });
+    }
+
+    // Update last activity timestamp
+    @Transactional
+    public void updateCartActivity(String sessionToken) {
+        cartRepository.findBySessionToken(sessionToken).ifPresent(cart -> {
+            cart.setLastUpdated(LocalDateTime.now());
+
+            // Reset to active if it was abandoned
+            if (cart.getStatus() == Cart.CartStatus.ABANDONED) {
+                cart.setStatus(Cart.CartStatus.ACTIVE);
+                cart.setRecoveryFlag(false);
+            }
+
+            cartRepository.save(cart);
+        });
+    }
+
+    // Scheduled task - Check every 10 seconds (for testing)
+    // Change to @Scheduled(fixedRate = 60000) for production (1 minute)
+    @Scheduled(fixedRate = 10000) // 3600000 every hour
+    @Transactional
+    public void detectAbandonedCarts() {
+        System.out.println("[" + LocalDateTime.now() + "] Checking for abandoned carts...");
+        // Find carts that haven't been updated in 1 minute
+        LocalDateTime cutoff = LocalDateTime.now().minus(Duration.ofMinutes(1));
+        List<Cart> inactiveCarts = cartRepository.findInactiveCarts(Cart.CartStatus.ACTIVE, cutoff);
+
+        System.out.println("Found " + inactiveCarts.size() + " inactive carts");
+
+        for (Cart cart : inactiveCarts) {
+            if (!cart.getItems().isEmpty()) {  // Only mark carts with items
+                System.out.println("   Marking cart as abandoned:");
+                System.out.println("   Session: " + cart.getSessionToken());
+                System.out.println("   Items: " + cart.getItems().size());
+                System.out.println("   Last Updated: " + cart.getLastUpdated());
+                System.out.println("   Setting recoveryFlag = true");
+
+                cart.setStatus(Cart.CartStatus.ABANDONED);
+                cart.setRecoveryFlag(true);  // frontend modal trigger
+                cart.setAbandonedAt(LocalDateTime.now());
+                cartRepository.save(cart);
+
+                System.out.println("Cart saved with recoveryFlag = true");
             }
         }
     }
-
-@Transactional
-public CartDTO clearCart(String sessionToken) {
-    Cart cart = cartRepository.findBySessionToken(sessionToken)
-        .orElseThrow(() -> new RuntimeException("Cart not found"));
-
-    cartItemRepository.deleteAllByCart(cart); // custom method
-    cart.setLastUpdated(LocalDateTime.now());
-    cartRepository.save(cart);
-
-    return cartMapper.toDTO(cart);
-}
 
 
 }

@@ -21,16 +21,18 @@ public class Cart {
     private Long id;
     @Column(name = "session_token", nullable = false, unique = true)
     private String sessionToken;
-    @Column(name = "recovered", nullable = false)
-    private boolean recoveryFlag = false;
     @Column(name = "is_checked_out", nullable = false)
     private boolean isCheckedOut;
     @Column(name = "last_updated", nullable = false)
     private LocalDateTime lastUpdated;
     @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
-
-
+    @Enumerated(EnumType.STRING)
+    private CartStatus status = CartStatus.ACTIVE;
+    @Column(name = "recovery_flag")
+    private Boolean recoveryFlag = false;
+    @Column(name = "abandoned_at")
+    private LocalDateTime abandonedAt;
     @OneToMany(mappedBy = "cart", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER) // one-to-many relationship with CartItem
 //   @JsonIgnore  // optional, if am not returning cart with items yet
     private List<CartItem> items = new ArrayList<>();
@@ -38,11 +40,11 @@ public class Cart {
     public enum CartStatus {
         ACTIVE,
         ABANDONED,
-        CLEARED
+        RECOVERED,
+        CONVERTED
     }
 
-    @Enumerated(EnumType.STRING)
-    private CartStatus status = CartStatus.ACTIVE;
+
 
 }
 

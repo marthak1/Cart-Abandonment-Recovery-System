@@ -2,7 +2,7 @@ import { Routes, Route, Link } from "react-router-dom";
 import { ShoppingBag, ShoppingCart, Home as HomeIcon, Package } from "lucide-react";
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
-import RecoveryModal from "./components/CartRecoveryModal";
+import {RecoveryModal} from "./components/CartRecoveryModal";
 
 function App() {
     return (

@@ -148,19 +148,66 @@ export const isCartInactive = async (sessionToken, thresholdSeconds) => {
     });
 };
 
+// Check if cart should show recovery modal
+export const checkRecoveryStatus = async (sessionToken) => {
+    try {
+        const response = await api.get(
+            `/cart/${sessionToken}/recovery-status`,
+            {
+                headers: { "X-Session-Token": sessionToken },
+            }
+        );
+        return response.data;
+    } catch (error) {
+        console.error("Failed to check recovery status:", error);
+        return { showRecoveryModal: false, hasItems: false };
+    }
+};
 
+// Dismiss recovery modal
+export const dismissRecovery = async (sessionToken) => {
+    try {
+        await api.post(
+            `/cart/${sessionToken}/dismiss-recovery`,
+            {},
+            {
+                headers: { "X-Session-Token": sessionToken },
+            }
+        );
+    } catch (error) {
+        console.error("Failed to dismiss recovery:", error);
+    }
+};
 
-// Delete Cart
-//export const deleteCartAPI = async (sessionToken) => {
-//    try {
-//        await api.delete(`/cart/${sessionToken}/delete`);
-//        return true; // Cart deleted
-//    } catch (error) {
-//        console.error("Failed to delete cart:", error.message || error);
-//        throw new Error("Could not delete cart.");
-//    }
-//};
+// Mark cart as recovered
+export const markCartRecovered = async (sessionToken) => {
+    try {
+        await api.post(
+            `/cart/${sessionToken}/mark-recovered`,
+            {},
+            {
+                headers: { "X-Session-Token": sessionToken },
+            }
+        );
+    } catch (error) {
+        console.error("Failed to mark cart as recovered:", error);
+    }
+};
 
+// Update cart activity
+export const updateCartActivity = async (sessionToken) => {
+    try {
+        await api.post(
+            `/cart/${sessionToken}/activity`,
+            {},
+            {
+                headers: { "X-Session-Token": sessionToken },
+            }
+        );
+    } catch (error) {
+        console.error("Failed to update activity:", error);
+    }
+};
 /**
  * Checkout cart — expects sessionToken as path param
  * POST /cart/{sessionToken}/checkout

@@ -99,6 +99,50 @@ public ResponseEntity<CartDTO> removeItem(
         CartDTO clearedCart = cartService.clearCart(sessionToken);
         return ResponseEntity.ok(clearedCart);
     }
+    // Check if cart should show recovery modal
+    @GetMapping("/{sessionToken}/recovery-status")
+    public ResponseEntity<Map<String, Boolean>> getRecoveryStatus(
+            @PathVariable String sessionToken,
+            @RequestHeader("X-Session-Token") String headerToken) {
+
+        CartDTO cart = cartService.fetchCart(sessionToken);
+        boolean shouldShowModal = cart.getRecoveryFlag() != null && cart.getRecoveryFlag();
+
+        return ResponseEntity.ok(Map.of(
+                "showRecoveryModal", shouldShowModal,
+                "hasItems", !cart.getItems().isEmpty()
+        ));
+    }
+
+    // Reset recovery flag when user dismisses modal
+    @PostMapping("/{sessionToken}/dismiss-recovery")
+    public ResponseEntity<Map<String, String>> dismissRecovery(
+            @PathVariable String sessionToken,
+            @RequestHeader("X-Session-Token") String headerToken) {
+
+        cartService.resetRecoveryFlag(sessionToken);
+        return ResponseEntity.ok(Map.of("message", "Recovery dismissed"));
+    }
+
+    // Mark cart as recovered when user responds to modal
+    @PostMapping("/{sessionToken}/mark-recovered")
+    public ResponseEntity<Map<String, String>> markRecovered(
+            @PathVariable String sessionToken,
+            @RequestHeader("X-Session-Token") String headerToken) {
+
+        cartService.markCartAsRecovered(sessionToken);
+        return ResponseEntity.ok(Map.of("message", "Cart marked as recovered"));
+    }
+
+    // Update activity timestamp
+    @PostMapping("/{sessionToken}/activity")
+    public ResponseEntity<Map<String, String>> updateActivity(
+            @PathVariable String sessionToken,
+            @RequestHeader("X-Session-Token") String headerToken) {
+
+        cartService.updateCartActivity(sessionToken);
+        return ResponseEntity.ok(Map.of("message", "Activity updated"));
+    }
 
 }
 

@@ -4,10 +4,11 @@ import com.shop.ecommerce_backend.model.Cart;
 import com.shop.ecommerce_backend.model.CartItem;
 import com.shop.ecommerce_backend.model.Product;
 import org.springframework.stereotype.Component;
+import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.stream.Collectors;
 @Component
 public class CartMapper {
-
     public CartDTO toDTO(Cart cart) {
         if (cart == null) {
             return null;
@@ -16,12 +17,11 @@ public class CartMapper {
         CartDTO dto = new CartDTO();
         dto.setId(cart.getId());
         dto.setSessionToken(cart.getSessionToken());
-        dto.setCreatedAt(cart.getCreatedAt());
+        dto.setStatus(String.valueOf(cart.getStatus()));
+        dto.setRecoveryFlag(cart.getRecoveryFlag()); // Include recovery flag
         dto.setLastUpdated(cart.getLastUpdated());
+        dto.setAbandonedAt(cart.getAbandonedAt());
 
-//        dto.setStatus(cart.getStatus());
-
-        // Map items with product details
         if (cart.getItems() != null) {
             dto.setItems(
                     cart.getItems().stream()
@@ -32,6 +32,11 @@ public class CartMapper {
 
         return dto;
     }
+
+    public boolean isCartInactive(LocalDateTime lastUpdated, Duration threshold) {
+        return lastUpdated != null && Duration.between(lastUpdated, LocalDateTime.now()).compareTo(threshold) > 0;
+    }
+
 
     // Map CartItem to CartItemDTO with Product details
     public CartItemDTO toItemDTO(CartItem item) {
@@ -44,7 +49,7 @@ public class CartMapper {
         dto.setQuantity(item.getQuantity());
         dto.setPrice(item.getPrice());
         dto.setProductName(item.getProduct().getName());
-//        dto.setSubtotal(item.getQuantity() * item.getProduct().getPrice());
+//        dto.setSubtotal(item.getQuantity() * item.getProduct().getPrice()); // fix
 
 
         // Map product details
