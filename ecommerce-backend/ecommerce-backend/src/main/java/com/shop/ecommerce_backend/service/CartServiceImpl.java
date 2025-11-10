@@ -7,19 +7,22 @@ import java.util.List;
 import java.util.Optional;
 import com.shop.ecommerce_backend.DTO.CartDTO;
 import com.shop.ecommerce_backend.DTO.CartMapper;
+import com.shop.ecommerce_backend.exception.CartRecoveryException;
+import com.shop.ecommerce_backend.exception.InvalidCartException;
+import com.shop.ecommerce_backend.exception.ProductNotFoundException;
+import com.shop.ecommerce_backend.exception.ResourceNotFoundException;
 import com.shop.ecommerce_backend.model.CartItem;
 import com.shop.ecommerce_backend.model.Product;
 import com.shop.ecommerce_backend.repository.CartItemRepository;
 import com.shop.ecommerce_backend.repository.ProductRepository;
 import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import com.shop.ecommerce_backend.model.Cart;
 import com.shop.ecommerce_backend.repository.CartRepository;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.server.ResponseStatusException;
+
 
 
 //TODO: CREATE A GLOBAL EXCEPTION
@@ -38,8 +41,20 @@ public class CartServiceImpl implements ICartService {
     @Override
     @Transactional
     public CartDTO addItemToCart(String sessionToken, Long productId, Integer quantity) {
-        System.out.println("Finding cart for session: " + sessionToken);
+        // 1. Validate session token
+        if (sessionToken == null || sessionToken.isEmpty()) {
+            throw new InvalidCartException("Session token is required");
+        }
 
+        // 2. Validate quantity
+        if (quantity == null || quantity <= 0) {
+            throw new InvalidCartException("Quantity must be greater than 0");
+        }
+
+        if (quantity > 100) {
+            throw new InvalidCartException("Cannot add more than 100 items at once");
+        }
+        System.out.println("Finding cart for session: " + sessionToken);
         // Find or create cart
         Cart cart = cartRepository.findBySessionToken(sessionToken)
                 .orElseGet(() -> {
@@ -54,10 +69,7 @@ public class CartServiceImpl implements ICartService {
 
         // Find product
         Product product = productRepository.findById(productId)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Product not found: " + productId
-                ));
+                .orElseThrow(() ->  new ProductNotFoundException(productId));
 
         // Check if item already exists in cart
         Optional<CartItem> existingItem = cart.getItems().stream()
@@ -89,7 +101,11 @@ public class CartServiceImpl implements ICartService {
 
         // Reload cart to ensure all relationships are loaded
         cart = cartRepository.findBySessionToken(sessionToken)
-                .orElseThrow(() -> new RuntimeException("Cart not found after add"));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Cart",
+                        "sessionToken",
+                        sessionToken
+                ));
 
         System.out.println("Final cart has " + cart.getItems().size() + " items");
 
@@ -102,7 +118,11 @@ public class CartServiceImpl implements ICartService {
     @Override
     public CartDTO fetchCart(String sessionToken) {
         Cart cart = cartRepository.findBySessionToken(sessionToken)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Cart not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Cart",
+                        "sessionToken",
+                        sessionToken
+                ));
 
         cart.setLastUpdated(LocalDateTime.now()); // lifecycle trace
         cartRepository.save(cart); // persist timestamp
@@ -118,9 +138,10 @@ public class CartServiceImpl implements ICartService {
     public CartDTO removeItemFromCart(String sessionToken, Long productId) {
         // Find cart with items loaded
         Cart cart = cartRepository.findBySessionToken(sessionToken)
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Cart not found"
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Cart",
+                        "sessionToken",
+                        sessionToken
                 ));
 
         System.out.println("Looking for product " + productId + " in " + cart.getItems().size() + " items");
@@ -129,9 +150,10 @@ public class CartServiceImpl implements ICartService {
         CartItem itemToRemove = cart.getItems().stream()
                 .filter(item -> item.getProduct().getId().equals(productId))
                 .findFirst()
-                .orElseThrow(() -> new ResponseStatusException(
-                        HttpStatus.NOT_FOUND,
-                        "Product " + productId + " not found in cart"
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "CartItem",
+                        "productId",
+                        productId
                 ));
 
         System.out.println("Removing item: " + itemToRemove.getId());
@@ -159,11 +181,16 @@ public class CartServiceImpl implements ICartService {
 @Override
 @Transactional
 public CartDTO updateItemQuantity(String sessionToken, Long productId, Integer quantity) {
-    // JOIN FETCH query to load product data
+    // Validate quantity
+    if (quantity == null || quantity < 0) {
+        throw new InvalidCartException("Quantity cannot be negative");
+    }
+        // JOIN FETCH query to load product data
     Cart cart = cartRepository.findBySessionToken(sessionToken)
-            .orElseThrow(() -> new ResponseStatusException(
-                    HttpStatus.NOT_FOUND,
-                    "Cart not found for session: " + sessionToken
+            .orElseThrow(() -> new ResourceNotFoundException(
+                    "Cart",
+                    "sessionToken",
+                    sessionToken
             ));
 
     Optional<CartItem> optionalItem = cart.getItems().stream()
@@ -171,14 +198,15 @@ public CartDTO updateItemQuantity(String sessionToken, Long productId, Integer q
             .findFirst();
 
     if (optionalItem.isEmpty()) {
-        throw new ResponseStatusException(
-                HttpStatus.NOT_FOUND,
-                "Product " + productId + " not found in cart"
+        throw  new ResourceNotFoundException(
+                "CartItem",
+                "productId",
+                productId
         );
     }
-
     CartItem item = optionalItem.get();
 
+// If quantity is 0, remove item
     if (quantity == 0) {
         cart.getItems().remove(item);
         cartItemRepository.delete(item);
@@ -211,13 +239,21 @@ public CartDTO updateItemQuantity(String sessionToken, Long productId, Integer q
     @Override
     public void deleteCart(String sessionToken) {
         Cart cart = cartRepository.findBySessionToken(sessionToken)
-                .orElseThrow(() -> new RuntimeException("Cart not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Cart",
+                        "sessionToken",
+                        sessionToken
+                ));
         cartRepository.delete(cart);
     }
     @Transactional
     public CartDTO clearCart(String sessionToken) {
         Cart cart = cartRepository.findBySessionToken(sessionToken)
-            .orElseThrow(() -> new RuntimeException("Cart not found"));
+            .orElseThrow(() -> new ResourceNotFoundException(
+                    "Cart",
+                    "sessionToken",
+                    sessionToken
+            ));
 
         cartItemRepository.deleteAllByCart(cart); // custom method
         cart.setLastUpdated(LocalDateTime.now());
@@ -229,7 +265,11 @@ public CartDTO updateItemQuantity(String sessionToken, Long productId, Integer q
     @Transactional
     public boolean isCartInactive(String sessionToken, Duration threshold) {
         Cart cart = cartRepository.findBySessionToken(sessionToken)
-                .orElseThrow(() -> new RuntimeException("Cart not found"));
+                .orElseThrow(() -> new ResourceNotFoundException(
+                        "Cart",
+                        "sessionToken",
+                        sessionToken
+                ));
 
         LocalDateTime cutoff = LocalDateTime.now().minus(threshold);
 
@@ -303,23 +343,26 @@ public CartDTO updateItemQuantity(String sessionToken, Long productId, Integer q
         System.out.println("Found " + inactiveCarts.size() + " inactive carts");
 
         for (Cart cart : inactiveCarts) {
-            if (!cart.getItems().isEmpty()) {  // Only mark carts with items
-                System.out.println("   Marking cart as abandoned:");
-                System.out.println("   Session: " + cart.getSessionToken());
-                System.out.println("   Items: " + cart.getItems().size());
-                System.out.println("   Last Updated: " + cart.getLastUpdated());
-                System.out.println("   Setting recoveryFlag = true");
+            try {
+                if (!cart.getItems().isEmpty()) {  // Only mark carts with items
+                    System.out.println("   Marking cart as abandoned:");
+                    System.out.println("   Session: " + cart.getSessionToken());
+                    System.out.println("   Items: " + cart.getItems().size());
+                    System.out.println("   Last Updated: " + cart.getLastUpdated());
+                    System.out.println("   Setting recoveryFlag = true");
 
-                cart.setStatus(Cart.CartStatus.ABANDONED);
-                cart.setRecoveryFlag(true);  // frontend modal trigger
-                cart.setAbandonedAt(LocalDateTime.now());
-                cartRepository.save(cart);
-
-                System.out.println("Cart saved with recoveryFlag = true");
+                    cart.setStatus(Cart.CartStatus.ABANDONED);
+                    cart.setRecoveryFlag(true);  // frontend modal trigger
+                    cart.setAbandonedAt(LocalDateTime.now());
+                    cartRepository.save(cart);
+                    System.out.println("Cart saved with recoveryFlag = true");
+                }
+            } catch(Exception e){
+                throw new CartRecoveryException("Cart abandonment detection failed: " + cart.getSessionToken(), e);
             }
-        }
-    }
+            }
 
+    }
 
 }
 

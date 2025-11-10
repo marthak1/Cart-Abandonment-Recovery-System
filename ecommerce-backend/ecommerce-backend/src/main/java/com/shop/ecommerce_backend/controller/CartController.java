@@ -2,12 +2,15 @@ package com.shop.ecommerce_backend.controller;
 import java.util.Map;
 import com.shop.ecommerce_backend.DTO.CartDTO;
 import com.shop.ecommerce_backend.DTO.CartMapper;
+import com.shop.ecommerce_backend.exception.InvalidCartException;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import com.shop.ecommerce_backend.service.CartServiceImpl;
 
@@ -18,6 +21,7 @@ import com.shop.ecommerce_backend.service.CartServiceImpl;
 @RestController
 @AllArgsConstructor
 @RequestMapping("/api/cart")
+@Validated
 @Tag(name = "Cart Item Operations", description = "Manage items within a cart using session token")
 public class CartController {
     private final CartServiceImpl cartService;
@@ -34,12 +38,15 @@ public class CartController {
     // Add Item to cart
         @PostMapping("/addItem")
     public ResponseEntity<CartDTO> addItem(
-            @RequestBody Map<String, Object> request,
+            @Valid @RequestBody Map<String, Object> request,
             @RequestHeader("X-Session-Token") String sessionToken) {
 
         Long productId = ((Number) request.get("productId")).longValue();
         Integer quantity = (Integer) request.getOrDefault("quantity", 1);
-
+// Additional validation
+        if (sessionToken == null || sessionToken.isEmpty()) {
+            throw new InvalidCartException("Session token is required");
+        }
         System.out.println("Adding item - Session: " + sessionToken + ", Product: " + productId);
 
         // Add item and get complete updated cart
@@ -70,7 +77,7 @@ public class CartController {
         Integer quantity = request.get("quantity");
 
         if (quantity == null) {
-            return ResponseEntity.badRequest().build();
+            throw new InvalidCartException("Quantity is required");
         }
 
         CartDTO updatedCart = cartService.updateItemQuantity(sessionToken, productId, quantity);

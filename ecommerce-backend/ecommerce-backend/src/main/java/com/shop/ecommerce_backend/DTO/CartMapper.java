@@ -33,9 +33,9 @@ public class CartMapper {
         return dto;
     }
 
-    public boolean isCartInactive(LocalDateTime lastUpdated, Duration threshold) {
-        return lastUpdated != null && Duration.between(lastUpdated, LocalDateTime.now()).compareTo(threshold) > 0;
-    }
+//    public boolean isCartInactive(LocalDateTime lastUpdated, Duration threshold) {
+//        return lastUpdated != null && Duration.between(lastUpdated, LocalDateTime.now()).compareTo(threshold) > 0;
+//    }
 
 
     // Map CartItem to CartItemDTO with Product details

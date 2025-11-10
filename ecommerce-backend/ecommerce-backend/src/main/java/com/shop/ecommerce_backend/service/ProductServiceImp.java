@@ -2,6 +2,8 @@
 
  import java.util.List;
  import java.util.stream.Collectors;
+
+ import com.shop.ecommerce_backend.exception.ProductNotFoundException;
  import org.springframework.stereotype.Service;
  import com.shop.ecommerce_backend.DTO.ProductDTO;
  import com.shop.ecommerce_backend.model.Product;
@@ -25,8 +27,7 @@
      @Override
      public Product updateProduct(Long id, Product updatedProduct) {
          Product existingProduct = productRepository.findById(id)
-                 .orElseThrow(() -> new RuntimeException("Product not found"));
-//                         ProductNotFoundException(id)); // CREATE PRODUCT NOTFOUND EXCEPTION CLASS TO CLEAR ERROR
+                 .orElseThrow(() -> new ProductNotFoundException(id));
 
          existingProduct.setName(updatedProduct.getName());
          existingProduct.setPrice(updatedProduct.getPrice());
@@ -45,7 +46,7 @@
     @Override
     public ProductDTO getProductById(Long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product not found"));
+                .orElseThrow(() -> new ProductNotFoundException(id));
         return toDTO(product);
     }
 
@@ -61,8 +62,9 @@
     @Override
     public void deleteProduct(Long id) {
         if (!productRepository.existsById(id)) {
-            throw new RuntimeException("Product not found");
-                    //ProductNotFoundException(id);
+            throw new ProductNotFoundException(id);
+
+//            RuntimeException("Product not found");
         }
         productRepository.deleteById(id);
     }

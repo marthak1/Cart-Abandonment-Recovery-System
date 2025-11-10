@@ -4,13 +4,16 @@ import "./index.css";
 import App from "./App.jsx";
 import { CartProvider } from './context/CartProvider.jsx';
 import { BrowserRouter } from "react-router-dom";
+import ErrorBoundary from "./errorBoundary/ErrorBoundary.jsx";
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <BrowserRouter>
+        <ErrorBoundary>
     <CartProvider>
       <App />
     </CartProvider>
+    </ErrorBoundary>
      </BrowserRouter>
   </StrictMode>
 );
