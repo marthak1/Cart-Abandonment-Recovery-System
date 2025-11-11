@@ -41,6 +41,10 @@ public class CartController {
             @Valid @RequestBody Map<String, Object> request,
             @RequestHeader("X-Session-Token") String sessionToken) {
 
+        Object rawProductId = request.get("productId");
+        if (!(rawProductId instanceof Number)) {
+            throw new InvalidCartException("Invalid or missing productId");
+        }
         Long productId = ((Number) request.get("productId")).longValue();
         Integer quantity = (Integer) request.getOrDefault("quantity", 1);
 // Additional validation

@@ -92,6 +92,7 @@ public class CartServiceImpl implements ICartService {
 
             cartItemRepository.save(newItem);
             cart.getItems().add(newItem);
+
             System.out.println("Added new item to cart");
         }
 
@@ -99,13 +100,13 @@ public class CartServiceImpl implements ICartService {
         cart.setLastUpdated(LocalDateTime.now());
         cartRepository.save(cart);
 
-        // Reload cart to ensure all relationships are loaded
-        cart = cartRepository.findBySessionToken(sessionToken)
-                .orElseThrow(() -> new ResourceNotFoundException(
-                        "Cart",
-                        "sessionToken",
-                        sessionToken
-                ));
+//        // Reload cart to ensure all relationships are loaded
+//        cart = cartRepository.findBySessionToken(sessionToken)
+//                .orElseThrow(() -> new ResourceNotFoundException(
+//                        "Cart",
+//                        "sessionToken",
+//                        sessionToken
+//                ));
 
         System.out.println("Final cart has " + cart.getItems().size() + " items");
 
