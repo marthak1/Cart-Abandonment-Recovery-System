@@ -47,3 +47,5 @@ describe("CartProvider", () => {
     expect(localStorage.getItem("cart")).toEqual(JSON.stringify(mockCart.items));
   });
 });
+
+

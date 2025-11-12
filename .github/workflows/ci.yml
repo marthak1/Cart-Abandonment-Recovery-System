@@ -1,5 +1,5 @@
 
-name: CI - Spring Boot with Dockerized MySQL
+name: CI - Spring Boot with H2
 
 on:
   push:
@@ -11,20 +11,6 @@ jobs:
   build-and-test:
     runs-on: ubuntu-latest
 
-    services:
-      mysql:
-        image: mysql:8.0
-        env:
-          MYSQL_ROOT_PASSWORD: testpassword
-          MYSQL_DATABASE: cartdb_docker
-        ports:
-          - 3306:3306
-        options: >-
-          --health-cmd="mysqladmin ping --silent"
-          --health-interval=10s
-          --health-timeout=5s
-          --health-retries=5
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -35,26 +21,14 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
-      - name: Wait for MySQL to be ready
-        run: |
-          for i in {1..30}; do
-            if mysql -h127.0.0.1 -uroot -p$root -e "SELECT 1"; then
-              echo "MySQL is up!"
-              break
-            fi
-            echo "Waiting for MySQL..."
-            sleep 2
-          done
-
       - name: Build and test with Maven
         run: |
-         cd ecommerce-backend/ecommerce-backend
-         chmod +x mvnw
-         ./mvnw clean verify
+          cd ecommerce-backend/ecommerce-backend
+          chmod +x mvnw
+          ./mvnw clean verify
         env:
-          SPRING_DATASOURCE_URL: jdbc:mysql://127.0.0.1:3306/cartdb_docker?createDatabaseIfNotExist=TRUE
-          SPRING_DATASOURCE_USERNAME: root
-          SPRING_DATASOURCE_PASSWORD: testpassword
+          SPRING_PROFILES_ACTIVE: test
+
   build-frontend:
     runs-on: ubuntu-latest
     steps:
@@ -68,4 +42,3 @@ jobs:
           cd ecommerce-frontend
           npm install
           npm run build
-       
