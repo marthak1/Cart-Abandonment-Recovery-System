@@ -2,10 +2,13 @@
 
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, waitFor } from "@testing-library/react";
-import { CartContext } from './CartContext.jsx';
-import { CartProvider, CartContext } from "../context/CartProvider.jsx";
-import * as cartItemService from "../services/cartItemService.jsx";
-import * as sessionUtils from "../utils/session.js";
+import * as cartService from "../../services/cartService.js";
+import { CartContext } from '../../context/CartContext.jsx';
+import {
+    CartProvider
+} from "../../context/CartProvider.jsx";
+// import * as cartService from "../services/cartService.jsx";
+import * as sessionUtils from "../../utils/session.js";
 
 const mockCart = {
   success: true,
@@ -15,7 +18,7 @@ const mockCart = {
 
 describe("CartProvider", () => {
   beforeEach(() => {
-    vi.spyOn(cartItemService, "fetchCart").mockResolvedValue(mockCart);
+    vi.spyOn(cartService, "fetchCart").mockResolvedValue(mockCart);
     vi.spyOn(sessionUtils, "getSessionToken").mockReturnValue("abc123");
     localStorage.clear();
   });
@@ -40,7 +43,7 @@ describe("CartProvider", () => {
       expect(contextValue.cartTotal).toBe(mockCart.total);
     });
 
-    expect(cartItemService.fetchCart).toHaveBeenCalledWith("abc123");
+    expect(cartService.fetchCart).toHaveBeenCalledWith("abc123");
     expect(localStorage.getItem("cart")).toEqual(JSON.stringify(mockCart.items));
   });
 });
