@@ -1,4 +1,5 @@
-// This component displays a list of products fetched from the backend API, allowing users to add items to their cart.
+// COMPONENTS (UI that uses the cart State-> UI + Logic)
+// This integration displays a list of products fetched from the backend API, allowing users to add items to their cart.
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../hooks/useCart.js";
@@ -47,6 +48,8 @@ const ProductList = () => {
     }, []);
 
     const handleAddToCart = async (product) => {
+        console.log('[AddToCart] Received product:', product);
+
         if (!product || typeof product !== 'object') {
             console.error('[AddToCart] Invalid product object:', product);
             setError("Invalid product");
@@ -172,6 +175,7 @@ const ProductList = () => {
 
 
                                 <button
+                                    data-testid={`add-to-cart-${product.productId}`}
                                     onClick={() => handleAddToCart(product)}
                                     disabled={addingProductId === product.id}
                                     className={`w-full py-2 px-4 rounded-lg font-semibold transition-all duration-200 ${

@@ -9,4 +9,4 @@ const Cart = () => {
 };
 export default Cart;
 
-// renders the cart viewer component
+// renders the cart viewer integration

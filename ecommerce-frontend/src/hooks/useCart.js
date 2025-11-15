@@ -1,4 +1,5 @@
-//This lets any component consume cart state via useCart(), it exposes context hook
+//HOOK (To interact with cart)
+//This lets any integration consume cart state via useCart(), it exposes context hook
 import { useContext } from 'react';
 import { CartContext } from '../context/CartContext.jsx';
 

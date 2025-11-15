@@ -1,9 +1,11 @@
-// // //This file provides the CartProvider component that uses CartContext to manage cart state and actions.
+// // CONTEXT & PROVIDER (Cart State Management)
+// This file provides the CartProvider integration that uses CartContext to manage cart state and actions.
 // // //context setup for cart state management and operations
 
 import React, { useCallback, useEffect, useState } from "react";
 import { CartContext } from "./CartContext.jsx";
 import { getSessionToken } from "../utils/session.js";
+import { saveCartToStorage, loadCartFromStorage } from '../utils/cartStorage';
 import { updateLastCartActivity } from "../utils/updateCartActivity.js";
 import {
     addItemToCart,
@@ -17,7 +19,8 @@ import {
 import { isValidCart } from "../utils/cartValidator.js";
 
 export const CartProvider = ({ children }) => {
-    const [cartItems, setCartItems] = useState([]);
+    const [cartItems, setCartItems] = useState(() => loadCartFromStorage()); // new
+    // const [cartItems, setCartItems] = useState([]); // remove
     const [cartTotal, setCartTotal] = useState(0);
     const [loading, setLoading] = useState(false);
     const [cartStatus, setCartStatus] = useState("EMPTY");
@@ -85,8 +88,15 @@ export const CartProvider = ({ children }) => {
         };
     }, [sessionToken, cartItems.length, hydrateCart]);
 
-    // Load cart on mount
+    // --- Load cart on mount (localStorage first, then backend) ---
     useEffect(() => {
+        const localCart = loadCartFromStorage(); // new
+        if (localCart.length > 0) {
+            console.log("[Storage] Hydrated cart from localStorage:", localCart.length, "items");
+            setCartItems(localCart);
+            setCartTotal(localCart.reduce((sum, item) => sum + item.price * item.quantity, 0));
+            setCartStatus("ACTIVE");
+        }
         hydrateCart();
     }, [hydrateCart]);
 
@@ -158,7 +168,6 @@ export const CartProvider = ({ children }) => {
         }
     };
 
-    // Remove item
     const removeItem = async (productId) => {
         if (!sessionToken) {
             console.error("No session token available");
@@ -166,19 +175,23 @@ export const CartProvider = ({ children }) => {
         }
 
         try {
-            setCartItems(prev => {
-                const filtered = prev.filter(item => {
-                    const itemProductId = item.product?.id || item.productId;
-                    return itemProductId !== productId;
-                });
-                return filtered;
-            });
+            // Optimistic update
+            setCartItems(prev => prev.filter(item => item.productId !== productId));
 
             const updatedCart = await removeItemFromCart(sessionToken, productId);
 
+            // Only update if backend returned valid data AND it's actually different
             if (updatedCart && Array.isArray(updatedCart.items)) {
-                setCartItems(updatedCart.items);
-                setCartTotal(updatedCart.total || 0);
+                // Verify the item is actually gone from backend response
+                const itemStillExists = updatedCart.items.some(item => item.productId === productId);
+
+                if (itemStillExists) {
+                    console.error("Backend failed to remove item");
+                    await hydrateCart(); // Fallback to refresh
+                } else {
+                    setCartItems(updatedCart.items);
+                    setCartTotal(updatedCart.total || 0);
+                }
             } else {
                 await hydrateCart();
             }
@@ -187,7 +200,6 @@ export const CartProvider = ({ children }) => {
             await hydrateCart();
         }
     };
-
     const clearCart = async () => {
         if (!sessionToken) return;
 
@@ -208,7 +220,15 @@ export const CartProvider = ({ children }) => {
         setCartTotal(freshCart.total ?? 0);
         setCartStatus(freshCart.status ?? "ACTIVE");
     };
-
+    useEffect(() => {
+        saveCartToStorage(cartItems);
+    }, [cartItems]);
+    useEffect(() => {
+        const saved = localStorage.getItem("cart");
+        if (saved) {
+            setCartItems(JSON.parse(saved));
+        }
+    }, []);
     return (
         <CartContext.Provider
             value={{
@@ -222,9 +242,9 @@ export const CartProvider = ({ children }) => {
                 restoreCart,
                 loading,
                 recoveryFlag,
-                showRecoveryModal, // ✅ Expose modal state
-                handleDismissRecovery, // ✅ Expose dismiss handler
-                handleProceedToCheckout, // ✅ Expose proceed handler
+                showRecoveryModal, // Expose modal state
+                handleDismissRecovery, // Expose dismiss handler
+                handleProceedToCheckout, // Expose proceed handler
                 clearCart,
             }}
         >

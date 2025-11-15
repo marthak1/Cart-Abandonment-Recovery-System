@@ -1,5 +1,7 @@
-// This component displays the contents of the shopping cart and allows users to modify item quantities or remove items.
+// COMPONENTS (UI that uses the cart)
+// This integration displays the contents of the shopping cart and allows users to modify item quantities or remove items.
 import { useCart } from "../hooks/useCart.js";
+// import { getItemId } from '../utils/cartValidator';
 import { ShoppingCart, Trash2, Plus, Minus, CreditCard, Package } from "lucide-react";
 const CartViewer = () => {
     const { cartItems, removeItem, clearCart, updateQuantity,cartTotal} = useCart();
@@ -29,23 +31,20 @@ const CartViewer = () => {
         }
     };
 
-    const handleRemoveItem = async (item) => {
-        // Get product ID safely
-        const productId = item;
+    const handleRemoveItem = async (productId) => {
 
         if (!productId) {
-            console.error("Cannot remove item - no product ID:", item);
+            console.error("Cannot remove item - no product ID:", productId);
             return;
         }
 
         console.log("Removing item:", {
-            itemId: item,
-            productId: productId
+            productId,
         });
 
         // Confirm before removing
         const confirmed = window.confirm(
-            `Remove ${item.product?.name || item.name} from cart?`
+            `Remove Item: ${productId} from cart?`
         );
 
         if (confirmed) {
@@ -84,6 +83,7 @@ const CartViewer = () => {
                             {cartItems.map((item) => (
 
                                 <li
+                                    data-testid={`quantity-${item.productId}`}
                                     key={item.productId || item.id}
                                     className="flex gap-4 p-4 border border-gray-200 rounded-xl hover:shadow-md transition-all duration-200 bg-gray-50"
                                 >
@@ -107,7 +107,8 @@ const CartViewer = () => {
                                                 {item.product?.name || item.name}
                                             </h4>
                                             <p className="text-sm text-gray-600">
-                                                Unit Price: <span className="font-medium">£{item.price.toFixed(2)}</span>
+                                                {/*Unit Price: <span className="font-medium">£{item.price.toFixed(2)}</span>*/}
+                                                Unit Price: <span className="font-medium">£{item.price || 0}</span>
                                             </p>
                                         </div>
 
@@ -152,6 +153,7 @@ const CartViewer = () => {
 
                                     {/* Remove Button */}
                                     <button
+                                        data-testid={`remove-${item.productId}`}
                                         onClick={() => handleRemoveItem(item.productId)}
                                         className="self-start p-2 text-red-600 hover:bg-red-50 rounded-lg transition-colors group"
                                         title="Remove item"

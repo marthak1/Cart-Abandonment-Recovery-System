@@ -1,3 +1,4 @@
+//Product API Call
 import api from "../api/api.js";
 
 export const getAllProducts = async () => {

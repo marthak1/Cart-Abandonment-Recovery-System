@@ -18,3 +18,4 @@ export const isValidCart = (cart) => {
 
     return true;
 };
+
