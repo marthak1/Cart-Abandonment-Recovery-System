@@ -3,8 +3,13 @@ import { ShoppingBag, ShoppingCart, Home as HomeIcon, Package } from "lucide-rea
 import Home from "./pages/Home";
 import Cart from "./pages/Cart";
 import {RecoveryModal} from "./components/CartRecoveryModal";
+import {useCart} from "./hooks/useCart.js";
+
+
 
 function App() {
+    const { cartCount } = useCart();
+
     return (
         <div className="min-h-screen flex flex-col bg-gradient-to-br from-purple-50 via-blue-50 to-purple-50">
             {/* Header */}
@@ -14,7 +19,8 @@ function App() {
                         {/* Logo Section */}
                         <Link to="/" className="flex items-center gap-3 group">
                             <div className="w-12 h-12 bg-white rounded-xl flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-200">
-                                <ShoppingBag className="w-7 h-7 text-purple-600" />
+                                <ShoppingBag className="w-7 h-7 text-purple-600"
+                                />
                             </div>
                             <div className="flex flex-col">
                                 <h1 className="text-2xl font-bold text-white">
@@ -41,10 +47,15 @@ function App() {
                                 <li>
                                     <Link
                                         to="/cart"
-                                        className="flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold bg-white text-purple-600 hover:bg-purple-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+                                        // className="flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold bg-white text-purple-600 hover:bg-purple-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
                                     >
+                                        <div className="relative flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold bg-white text-purple-600 hover:bg-purple-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
                                         <ShoppingCart className="w-5 h-5" />
+                                        {cartCount > 0 && (
+                                            <span data-testid="cart-count"  className="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full px-2">{cartCount}</span>
+                                        )}
                                         Cart
+                                        </div>
                                     </Link>
                                 </li>
                             </ul>

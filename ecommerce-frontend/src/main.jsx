@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App.jsx";
 import { CartProvider } from './context/CartProvider.jsx';
 import { BrowserRouter } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import ErrorBoundary from "./errorBoundary/ErrorBoundary.jsx";
 
 createRoot(document.getElementById("root")).render(
@@ -12,6 +13,7 @@ createRoot(document.getElementById("root")).render(
         <ErrorBoundary>
     <CartProvider>
       <App />
+        <ToastContainer />
     </CartProvider>
     </ErrorBoundary>
      </BrowserRouter>

@@ -3,6 +3,8 @@
 // // //context setup for cart state management and operations
 
 import React, { useCallback, useEffect, useState } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { CartContext } from "./CartContext.jsx";
 import { getSessionToken } from "../utils/session.js";
 import { saveCartToStorage, loadCartFromStorage } from '../utils/cartStorage';
@@ -140,6 +142,13 @@ export const CartProvider = ({ children }) => {
             setCartItems(cart.items);
             setCartTotal(cart.total || 0);
             setCartStatus(cart.status || "ACTIVE");
+            const lastItem = cart.items[cart.items.length - 1];
+            toast.success(`${lastItem.product.name} added to cart!`, {
+                position: "top-right",
+                autoClose: 3000,
+            });
+
+
             updateLastCartActivity();
         } catch (err) {
             console.error("Failed to add item:", err.message || err);
@@ -220,6 +229,8 @@ export const CartProvider = ({ children }) => {
         setCartTotal(freshCart.total ?? 0);
         setCartStatus(freshCart.status ?? "ACTIVE");
     };
+    const cartCount = cartItems.reduce((sum, item) => sum + item.quantity, 0);
+
     useEffect(() => {
         saveCartToStorage(cartItems);
     }, [cartItems]);
@@ -246,6 +257,7 @@ export const CartProvider = ({ children }) => {
                 handleDismissRecovery, // Expose dismiss handler
                 handleProceedToCheckout, // Expose proceed handler
                 clearCart,
+                cartCount,
             }}
         >
             {children}
