@@ -9,7 +9,7 @@ public interface IProductService {
 List <ProductDTO> getAllProducts();
 ProductDTO getProductById(Long id);
 Product createProduct(Product newProduct);
-Product updateProduct(Long id, Product updatedProduct);
+ProductDTO updateProduct(Long id, ProductDTO updatedProduct);
 void deleteProduct(Long id);
 
 }

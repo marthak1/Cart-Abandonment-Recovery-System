@@ -3,20 +3,23 @@
  import java.util.List;
  import java.util.stream.Collectors;
 
+ import com.shop.ecommerce_backend.DTO.CartMapper;
  import com.shop.ecommerce_backend.exception.ProductNotFoundException;
+ import lombok.AllArgsConstructor;
  import org.springframework.stereotype.Service;
  import com.shop.ecommerce_backend.DTO.ProductDTO;
  import com.shop.ecommerce_backend.model.Product;
  import com.shop.ecommerce_backend.repository.ProductRepository;
 //TODO: Handle Exception
  @Service
+ @AllArgsConstructor
  public class ProductServiceImp implements IProductService {
-
      private final ProductRepository productRepository;
-     public ProductServiceImp(ProductRepository productRepository) {
-
-         this.productRepository = productRepository;
-     }
+     private final CartMapper cartMapper;
+//     public ProductServiceImp(ProductRepository productRepository) {
+//
+//         this.productRepository = productRepository;
+//     }
 
      @Override
      public Product createProduct(Product newProduct) {
@@ -25,16 +28,22 @@
      }
 
      @Override
-     public Product updateProduct(Long id, Product updatedProduct) {
+     public ProductDTO updateProduct(Long id, ProductDTO updatedProduct) {
+         // 1. Find existing product
          Product existingProduct = productRepository.findById(id)
                  .orElseThrow(() -> new ProductNotFoundException(id));
 
+         // 2. Update fields (only those allowed)
          existingProduct.setName(updatedProduct.getName());
          existingProduct.setPrice(updatedProduct.getPrice());
          existingProduct.setDescription(updatedProduct.getDescription());
          existingProduct.setImageUrl(updatedProduct.getImageUrl());
 
-         return productRepository.save(existingProduct);
+         // 3. Save updated product
+         Product saved = productRepository.save(existingProduct);
+
+         // 4. Map back to DTO
+         return cartMapper.toProductDTO(saved);
      }
 
     @Override

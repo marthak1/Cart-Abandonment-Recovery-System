@@ -337,8 +337,8 @@ public CartDTO updateItemQuantity(String sessionToken, Long productId, Integer q
     @Transactional
     public void detectAbandonedCarts() {
         System.out.println("[" + LocalDateTime.now() + "] Checking for abandoned carts...");
-        // Find carts that haven't been updated in 1 minute
-        LocalDateTime cutoff = LocalDateTime.now().minus(Duration.ofMinutes(1));
+        // Find carts that haven't been updated in 10 seconds
+        LocalDateTime cutoff = LocalDateTime.now().minus(Duration.ofSeconds(10));
         List<Cart> inactiveCarts = cartRepository.findInactiveCarts(Cart.CartStatus.ACTIVE, cutoff);
 
         System.out.println("Found " + inactiveCarts.size() + " inactive carts");

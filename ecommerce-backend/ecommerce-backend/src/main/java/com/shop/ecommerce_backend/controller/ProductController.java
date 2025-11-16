@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.shop.ecommerce_backend.DTO.ProductDTO;
 import com.shop.ecommerce_backend.service.ProductServiceImp;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import com.shop.ecommerce_backend.model.Product;
 //TODO: HANDLE EXCEPTION
 //TODO: Document API with swagger
 @RestController
+@Slf4j
 @RequestMapping("/api/products")
 public class ProductController {
 
@@ -41,9 +43,10 @@ public class ProductController {
 
 
   @PutMapping("/{id}")
-  public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product updatedProduct) {
-      Product product = productService.updateProduct(id, updatedProduct);
-      return ResponseEntity.ok(product);
+  public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO updatedProduct) {
+       log.info("Updating product {} with payload {}", id, updatedProduct);
+      ProductDTO updated = productService.updateProduct(id, updatedProduct);
+      return ResponseEntity.ok(updated);
   }
 
     @DeleteMapping("/{id}")
@@ -53,18 +56,3 @@ public class ProductController {
   }
 
 }
-//  @GetMapping
-//  public ResponseEntity<List<Product>> getAllProducts() {
-//          List <Product> allProducts = productService.getAllProducts();
-//      return ResponseEntity.status(HttpStatus.OK)
-//                           .body((allProducts));
-//  }
-
-
-//  @GetMapping("/{id}")
-//  public ResponseEntity<Product> getProductById(@PathVariable Long id) {
-//      Product product = productService.getProductById(id)
-//              .orElseThrow(() -> new RuntimeException("product not found"));
-//                      //ProductNotFoundException(id)); -> USE THIS FOR GLOBAL EXCEPTION
-//      return ResponseEntity.ok(product);
-//  }
