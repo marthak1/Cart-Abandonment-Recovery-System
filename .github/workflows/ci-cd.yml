@@ -45,7 +45,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         with:
           name: Backend Test Results
-          path: ecommerce-backend/ecommerce-backend/target/surefire-reports/*.xml
+          path: ecommerce-backend/target/surefire-reports/*.xml
           reporter: java-junit
 
       - name: Upload backend artifact
