@@ -7,7 +7,7 @@ import ProductList  from '../../components/ProductList';
 import CartViewer  from '../../components/CartViewer';
 
 // Mock the exact module your components import
-vi.mock('../../services/ProductService', () => ({
+vi.mock('../../services/productService', () => ({
     getAllProducts: vi.fn(),
 }));
 vi.mock('../../services/cartService', () => ({
@@ -16,7 +16,7 @@ vi.mock('../../services/cartService', () => ({
     removeItemFromCart: vi.fn(),
 }))
 // Import from the same mocked module
-import { getAllProducts } from '../../services/ProductService';
+import { getAllProducts } from '../../services/productService';
 import { addItemToCart, fetchCart, removeItemFromCart} from '../../services/cartService';
 addItemToCart.mockResolvedValue({
     items: [
