@@ -41,6 +41,8 @@ jobs:
       - name: Generate test report
         if: always()
         uses: dorny/test-reporter@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.PAT_TOKEN }}
         with:
           name: Backend Test Results
           path: ecommerce-backend/ecommerce-backend/target/surefire-reports/*.xml
