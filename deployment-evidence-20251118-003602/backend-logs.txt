@@ -1,0 +1,1342 @@
+spring_backend  | 
+spring_backend  |   .   ____          _            __ _ _
+spring_backend  |  /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+spring_backend  | ( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+spring_backend  |  \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+spring_backend  |   '  |____| .__|_| |_|_| |_\__, | / / / /
+spring_backend  |  =========|_|==============|___/=/_/_/_/
+spring_backend  | 
+spring_backend  |  :: Spring Boot ::                (v3.5.7)
+spring_backend  | 
+spring_backend  | 2025-11-18 00:07:56 - Starting EcommerceBackendApplication v0.0.1-SNAPSHOT using Java 17.0.17 with PID 1 (/app/app.jar started by spring in /app)
+spring_backend  | 2025-11-18 00:07:56 - The following 1 profile is active: "prod"
+spring_backend  | 2025-11-18 00:08:06 - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+spring_backend  | 2025-11-18 00:08:06 - Finished Spring Data repository scanning in 143 ms. Found 3 JPA repository interfaces.
+spring_backend  | 2025-11-18 00:08:09 - Tomcat initialized with port 8080 (http)
+spring_backend  | 2025-11-18 00:08:09 - Starting service [Tomcat]
+spring_backend  | 2025-11-18 00:08:09 - Starting Servlet engine: [Apache Tomcat/10.1.48]
+spring_backend  | 2025-11-18 00:08:09 - Initializing Spring embedded WebApplicationContext
+spring_backend  | 2025-11-18 00:08:09 - Root WebApplicationContext: initialization completed in 13068 ms
+spring_backend  | 2025-11-18 00:08:10 - HHH000204: Processing PersistenceUnitInfo [name: default]
+spring_backend  | 2025-11-18 00:08:11 - HHH000412: Hibernate ORM core version 6.6.33.Final
+spring_backend  | 2025-11-18 00:08:11 - HHH000026: Second-level cache disabled
+spring_backend  | 2025-11-18 00:08:12 - No LoadTimeWeaver setup: ignoring JPA class transformer
+spring_backend  | 2025-11-18 00:08:12 - HikariPool-1 - Starting...
+spring_backend  | 2025-11-18 00:08:13 - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@37364634
+spring_backend  | 2025-11-18 00:08:13 - HikariPool-1 - Start completed.
+spring_backend  | 2025-11-18 00:08:14 - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+spring_backend  | 2025-11-18 00:08:14 - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+spring_backend  | 2025-11-18 00:08:14 - HHH10001005: Database info:
+spring_backend  | 	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+spring_backend  | 	Database driver: undefined/unknown
+spring_backend  | 	Database version: 8.0
+spring_backend  | 	Autocommit mode: undefined/unknown
+spring_backend  | 	Isolation level: undefined/unknown
+spring_backend  | 	Minimum pool size: undefined/unknown
+spring_backend  | 	Maximum pool size: undefined/unknown
+spring_backend  | 2025-11-18 00:08:21 - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+spring_backend  | 2025-11-18 00:08:25 - Initialized JPA EntityManagerFactory for persistence unit 'default'
+spring_backend  | 2025-11-18 00:08:26 - Hibernate is in classpath; If applicable, HQL parser will be used.
+spring_backend  | 2025-11-18 00:08:29 - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+spring_backend  | 2025-11-18 00:08:33 - Exposing 1 endpoint beneath base path '/actuator'
+spring_backend  | 2025-11-18 00:08:33 - Tomcat started on port 8080 (http) with context path '/'
+spring_backend  | 2025-11-18 00:08:33 - Started EcommerceBackendApplication in 40.938 seconds (process running for 45.364)
+spring_backend  | [2025-11-18T00:08:34.021039599] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | 2025-11-18 00:08:35 - Initializing Spring DispatcherServlet 'dispatcherServlet'
+spring_backend  | 2025-11-18 00:08:35 - Initializing Servlet 'dispatcherServlet'
+spring_backend  | 2025-11-18 00:08:35 - Completed initialization in 2 ms
+spring_backend  | [2025-11-18T00:08:43.956492503] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | ========================================
+spring_backend  | ResourceNotFoundException occurred at 2025-11-18T00:08:49.959608575
+spring_backend  | Message: Cart not found with sessionToken: '1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e'
+spring_backend  | Stack trace:
+spring_backend  | com.shop.ecommerce_backend.exception.ResourceNotFoundException: Cart not found with sessionToken: '1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e'
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.lambda$fetchCart$3(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/java.util.Optional.orElseThrow(Unknown Source)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.fetchCart(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController.fetchCart(CartController.java:69)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:172)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+spring_backend  | 	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+spring_backend  | 	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+spring_backend  | 	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+spring_backend  | 	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+spring_backend  | 	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+spring_backend  | 	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+spring_backend  | 	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+spring_backend  | 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+spring_backend  | 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+spring_backend  | 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+spring_backend  | 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+spring_backend  | 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+spring_backend  | 	at java.base/java.lang.Thread.run(Unknown Source)
+spring_backend  | ========================================
+spring_backend  | [2025-11-18T00:08:53.943424229] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | ========================================
+spring_backend  | ResourceNotFoundException occurred at 2025-11-18T00:09:02.666788460
+spring_backend  | Message: Cart not found with sessionToken: '1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e'
+spring_backend  | Stack trace:
+spring_backend  | com.shop.ecommerce_backend.exception.ResourceNotFoundException: Cart not found with sessionToken: '1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e'
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.lambda$fetchCart$3(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/java.util.Optional.orElseThrow(Unknown Source)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.fetchCart(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController.fetchCart(CartController.java:69)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:172)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+spring_backend  | 	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+spring_backend  | 	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+spring_backend  | 	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+spring_backend  | 	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+spring_backend  | 	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+spring_backend  | 	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+spring_backend  | 	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+spring_backend  | 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+spring_backend  | 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+spring_backend  | 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+spring_backend  | 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+spring_backend  | 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+spring_backend  | 	at java.base/java.lang.Thread.run(Unknown Source)
+spring_backend  | ========================================
+spring_backend  | [2025-11-18T00:09:03.942927236] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:09:13.944088849] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:09:23.941136995] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:09:33.941083484] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:09:43.941244311] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:09:53.938179153] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:10:03.938513971] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:10:13.937959011] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:10:23.933952127] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:10:33.933556329] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:10:43.934069088] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:10:53.931570480] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:11:03.931900328] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:11:13.930851718] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:11:23.928944524] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:11:33.928889361] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:11:43.928818597] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:11:53.925821111] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:12:03.926213570] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:12:13.925689308] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:12:23.922007817] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:12:33.921593801] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:12:43.922386657] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:12:53.919045679] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:13:03.918706413] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:13:13.921890894] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | ========================================
+spring_backend  | ResourceNotFoundException occurred at 2025-11-18T00:13:18.651359978
+spring_backend  | Message: Cart not found with sessionToken: '1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e'
+spring_backend  | Stack trace:
+spring_backend  | com.shop.ecommerce_backend.exception.ResourceNotFoundException: Cart not found with sessionToken: '1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e'
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.lambda$fetchCart$3(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/java.util.Optional.orElseThrow(Unknown Source)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.fetchCart(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController.fetchCart(CartController.java:69)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:172)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+spring_backend  | 	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+spring_backend  | 	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+spring_backend  | 	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+spring_backend  | 	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+spring_backend  | 	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+spring_backend  | 	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+spring_backend  | 	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+spring_backend  | 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+spring_backend  | 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+spring_backend  | 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+spring_backend  | 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+spring_backend  | 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+spring_backend  | 	at java.base/java.lang.Thread.run(Unknown Source)
+spring_backend  | ========================================
+spring_backend  | [2025-11-18T00:13:23.920584580] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:13:33.918196818] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:13:43.924351848] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:13:53.915669004] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:14:03.914954957] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:14:13.915007526] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:14:23.912010388] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:14:33.913787747] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | ========================================
+spring_backend  | ResourceNotFoundException occurred at 2025-11-18T00:14:35.447770403
+spring_backend  | Message: Cart not found with sessionToken: '9a896448-6b33-40e5-a577-30e3a5102672'
+spring_backend  | Stack trace:
+spring_backend  | com.shop.ecommerce_backend.exception.ResourceNotFoundException: Cart not found with sessionToken: '9a896448-6b33-40e5-a577-30e3a5102672'
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.lambda$fetchCart$3(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/java.util.Optional.orElseThrow(Unknown Source)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.fetchCart(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController.fetchCart(CartController.java:69)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:172)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+spring_backend  | 	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+spring_backend  | 	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+spring_backend  | 	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+spring_backend  | 	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+spring_backend  | 	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+spring_backend  | 	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+spring_backend  | 	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+spring_backend  | 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+spring_backend  | 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+spring_backend  | 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+spring_backend  | 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+spring_backend  | 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+spring_backend  | 	at java.base/java.lang.Thread.run(Unknown Source)
+spring_backend  | ========================================
+spring_backend  | [2025-11-18T00:14:43.920497785] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:14:53.916597374] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:15:03.911004348] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:15:13.919185938] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:15:23.910992749] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:15:33.907002031] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:15:43.907443156] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:15:53.904435202] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:16:03.904695730] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:16:13.909489201] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:16:23.911194143] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:16:33.907234710] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:16:43.906448883] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:16:53.899408743] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:17:03.903684347] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:17:13.898996850] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:17:23.896479177] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:17:33.896558930] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:17:43.896558833] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:17:53.895211830] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:18:03.894012097] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:18:13.897068034] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:18:23.895568872] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:18:33.888708571] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:18:43.891100767] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:18:53.892183336] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:19:03.884706103] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:19:13.884813466] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:19:23.885478864] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:19:33.891695719] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:19:43.884925081] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:19:53.881993118] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:20:03.882131822] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:20:13.882238514] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:20:23.880684114] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:20:33.882873503] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:20:43.881924626] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:20:53.876764576] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:21:03.879114841] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:21:13.877489307] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | ========================================
+spring_backend  | ResourceNotFoundException occurred at 2025-11-18T00:21:19.706758991
+spring_backend  | Message: Cart not found with sessionToken: '89ed5beb-083e-4f90-99fe-c5fca0e4df38'
+spring_backend  | Stack trace:
+spring_backend  | com.shop.ecommerce_backend.exception.ResourceNotFoundException: Cart not found with sessionToken: '89ed5beb-083e-4f90-99fe-c5fca0e4df38'
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.lambda$fetchCart$3(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/java.util.Optional.orElseThrow(Unknown Source)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.fetchCart(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController.fetchCart(CartController.java:69)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:172)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+spring_backend  | 	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+spring_backend  | 	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+spring_backend  | 	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+spring_backend  | 	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+spring_backend  | 	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+spring_backend  | 	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+spring_backend  | 	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+spring_backend  | 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+spring_backend  | 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+spring_backend  | 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+spring_backend  | 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+spring_backend  | 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+spring_backend  | 	at java.base/java.lang.Thread.run(Unknown Source)
+spring_backend  | ========================================
+spring_backend  | [2025-11-18T00:21:23.878965718] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | ========================================
+spring_backend  | ResourceNotFoundException occurred at 2025-11-18T00:21:26.997358697
+spring_backend  | Message: Cart not found with sessionToken: '89ed5beb-083e-4f90-99fe-c5fca0e4df38'
+spring_backend  | Stack trace:
+spring_backend  | com.shop.ecommerce_backend.exception.ResourceNotFoundException: Cart not found with sessionToken: '89ed5beb-083e-4f90-99fe-c5fca0e4df38'
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.lambda$fetchCart$3(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/java.util.Optional.orElseThrow(Unknown Source)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.fetchCart(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController.fetchCart(CartController.java:69)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:172)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+spring_backend  | 	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+spring_backend  | 	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+spring_backend  | 	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+spring_backend  | 	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+spring_backend  | 	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+spring_backend  | 	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+spring_backend  | 	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+spring_backend  | 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+spring_backend  | 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+spring_backend  | 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+spring_backend  | 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+spring_backend  | 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+spring_backend  | 	at java.base/java.lang.Thread.run(Unknown Source)
+spring_backend  | ========================================
+spring_backend  | 2025-11-18 00:21:30 - No mapping for GET /
+spring_backend  | ========================================
+spring_backend  | Exception occurred at 2025-11-18T00:21:30.191875281
+spring_backend  | Message: No endpoint GET /.
+spring_backend  | Stack trace:
+spring_backend  | org.springframework.web.servlet.NoHandlerFoundException: No endpoint GET /.
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1305)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+spring_backend  | 	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+spring_backend  | 	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+spring_backend  | 	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+spring_backend  | 	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+spring_backend  | 	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+spring_backend  | 	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+spring_backend  | 	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+spring_backend  | 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+spring_backend  | 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+spring_backend  | 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+spring_backend  | 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+spring_backend  | 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+spring_backend  | 	at java.base/java.lang.Thread.run(Unknown Source)
+spring_backend  | ========================================
+spring_backend  | 2025-11-18 00:21:30 - No mapping for GET /.well-known/appspecific/com.chrome.devtools.json
+spring_backend  | 2025-11-18 00:21:30 - No mapping for GET /favicon.ico
+spring_backend  | ========================================
+spring_backend  | Exception occurred at 2025-11-18T00:21:30.468667768
+spring_backend  | Message: No endpoint GET /favicon.ico.
+spring_backend  | Stack trace:
+spring_backend  | org.springframework.web.servlet.NoHandlerFoundException: No endpoint GET /favicon.ico.
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1305)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+spring_backend  | 	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+spring_backend  | 	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+spring_backend  | 	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+spring_backend  | 	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+spring_backend  | 	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+spring_backend  | 	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+spring_backend  | 	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+spring_backend  | 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+spring_backend  | 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+spring_backend  | 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+spring_backend  | 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+spring_backend  | 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+spring_backend  | 	at java.base/java.lang.Thread.run(Unknown Source)
+spring_backend  | ========================================
+spring_backend  | ========================================
+spring_backend  | Exception occurred at 2025-11-18T00:21:30.558538487
+spring_backend  | Message: No endpoint GET /.well-known/appspecific/com.chrome.devtools.json.
+spring_backend  | Stack trace:
+spring_backend  | org.springframework.web.servlet.NoHandlerFoundException: No endpoint GET /.well-known/appspecific/com.chrome.devtools.json.
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.noHandlerFound(DispatcherServlet.java:1305)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1067)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+spring_backend  | 	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+spring_backend  | 	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+spring_backend  | 	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+spring_backend  | 	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+spring_backend  | 	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+spring_backend  | 	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+spring_backend  | 	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+spring_backend  | 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+spring_backend  | 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+spring_backend  | 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+spring_backend  | 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+spring_backend  | 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+spring_backend  | 	at java.base/java.lang.Thread.run(Unknown Source)
+spring_backend  | ========================================
+spring_backend  | [2025-11-18T00:21:33.874538611] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:21:43.874820206] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:21:53.872225369] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:22:03.872154990] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:22:13.871478590] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:22:23.868733831] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:22:33.868768797] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:22:43.868869009] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:22:53.865687684] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:23:03.865543342] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:23:13.865513738] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:23:23.863414966] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:23:33.863841732] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:23:43.863622816] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | ========================================
+spring_backend  | ResourceNotFoundException occurred at 2025-11-18T00:23:48.761643747
+spring_backend  | Message: Cart not found with sessionToken: '1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e'
+spring_backend  | Stack trace:
+spring_backend  | com.shop.ecommerce_backend.exception.ResourceNotFoundException: Cart not found with sessionToken: '1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e'
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.lambda$fetchCart$3(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/java.util.Optional.orElseThrow(Unknown Source)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.fetchCart(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController.fetchCart(CartController.java:69)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:172)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+spring_backend  | 	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+spring_backend  | 	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+spring_backend  | 	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+spring_backend  | 	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+spring_backend  | 	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+spring_backend  | 	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+spring_backend  | 	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+spring_backend  | 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+spring_backend  | 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+spring_backend  | 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+spring_backend  | 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+spring_backend  | 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+spring_backend  | 	at java.base/java.lang.Thread.run(Unknown Source)
+spring_backend  | ========================================
+spring_backend  | [2025-11-18T00:23:53.860855154] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:24:03.861061244] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:24:13.861072402] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:24:23.859320477] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:24:33.857067309] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:24:43.858973094] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | ========================================
+spring_backend  | ResourceNotFoundException occurred at 2025-11-18T00:24:52.004012833
+spring_backend  | Message: Cart not found with sessionToken: '1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e'
+spring_backend  | Stack trace:
+spring_backend  | com.shop.ecommerce_backend.exception.ResourceNotFoundException: Cart not found with sessionToken: '1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e'
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.lambda$fetchCart$3(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/java.util.Optional.orElseThrow(Unknown Source)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.fetchCart(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController.fetchCart(CartController.java:69)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:172)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+spring_backend  | 	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+spring_backend  | 	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+spring_backend  | 	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+spring_backend  | 	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+spring_backend  | 	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+spring_backend  | 	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+spring_backend  | 	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+spring_backend  | 	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+spring_backend  | 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+spring_backend  | 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+spring_backend  | 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+spring_backend  | 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+spring_backend  | 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+spring_backend  | 	at java.base/java.lang.Thread.run(Unknown Source)
+spring_backend  | ========================================
+spring_backend  | [2025-11-18T00:24:53.855308250] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:25:03.861529987] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:25:13.855292011] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | Adding item - Session: 1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e, Product: 2
+spring_backend  | Finding cart for session: 1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e
+spring_backend  | Creating new cart for session: 1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e
+spring_backend  | Added new item to cart
+spring_backend  | Final cart has 1 items
+spring_backend  | Cart after add: 1 items, Total: 35.00
+spring_backend  | [2025-11-18T00:25:23.852799373] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:25:33.852689344] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | Adding item - Session: 1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e, Product: 1
+spring_backend  | Finding cart for session: 1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e
+spring_backend  | Added new item to cart
+spring_backend  | Final cart has 2 items
+spring_backend  | Cart after add: 2 items, Total: 140.00
+spring_backend  | [2025-11-18T00:25:43.855690103] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:25:53.849077314] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | Removing product: 1 from session: 1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e
+spring_backend  | Looking for product 1 in 2 items
+spring_backend  | Removing item: 2
+spring_backend  | Cart now has 1 items
+spring_backend  | Cart after removal: 1 items
+spring_backend  | [2025-11-18T00:26:03.854282524] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:26:13.850389857] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:26:23.847838871] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:26:33.847725496] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:26:43.852812479] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:26:53.845725039] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:27:03.845707617] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:27:13.845870488] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:27:23.842982116] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:27:33.846486659] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:27:43.842245066] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:27:53.845050171] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:28:03.839754196] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:28:13.844294193] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:28:23.838029310] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:28:33.837490385] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:28:43.837992587] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:28:53.835151814] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:29:03.834491333] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:29:13.834677509] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:29:23.831789035] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:29:33.831875750] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:29:43.860760027] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:29:53.830403757] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:30:03.830360465] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:30:13.830618280] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:30:23.842550201] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:30:33.827646204] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:30:43.874557053] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:30:53.824764284] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:31:03.824676044] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:31:13.824420077] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:31:23.818583981] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:31:33.818334458] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:31:43.818512321] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:31:53.822424079] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:32:03.818988405] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:32:13.820543653] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:32:23.816984467] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:32:33.817372409] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:32:43.823674232] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:32:53.814491940] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:33:03.819206654] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:33:13.818579636] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:33:23.818501390] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:33:33.811996980] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:33:43.812039470] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:33:53.809237966] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:34:03.809814909] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:34:13.810348505] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:34:23.810387373] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:34:33.805900615] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:34:43.813933115] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:34:53.804876635] Checking for abandoned carts...
+spring_backend  | Found 1 inactive carts
+spring_backend  |    Marking cart as abandoned:
+spring_backend  |    Session: 1bf15af9-a0d4-4e73-adcc-fcd6909f5a2e
+spring_backend  |    Items: 1
+spring_backend  |    Last Updated: 2025-11-18T00:34:40.786762
+spring_backend  |    Setting recoveryFlag = true
+spring_backend  | Cart saved with recoveryFlag = true
+spring_backend  | [2025-11-18T00:35:03.804469915] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:35:13.809898064] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:35:23.805766062] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:35:33.802445498] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:35:43.816445280] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | ========================================
+spring_backend  | ResourceNotFoundException occurred at 2025-11-18T00:35:51.124976358
+spring_backend  | Message: Cart not found with sessionToken: '89ed5beb-083e-4f90-99fe-c5fca0e4df38'
+spring_backend  | Stack trace:
+spring_backend  | com.shop.ecommerce_backend.exception.ResourceNotFoundException: Cart not found with sessionToken: '89ed5beb-083e-4f90-99fe-c5fca0e4df38'
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.lambda$fetchCart$3(CartServiceImpl.java:122)
+spring_backend  | 	at java.base/java.util.Optional.orElseThrow(Unknown Source)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl.fetchCart(CartServiceImpl.java:122)
+spring_backend  | 	at jdk.internal.reflect.GeneratedMethodAccessor61.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:380)
+spring_backend  | 	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.service.CartServiceImpl$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController.fetchCart(CartController.java:69)
+spring_backend  | 	at jdk.internal.reflect.GeneratedMethodAccessor45.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:360)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+spring_backend  | 	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:172)
+spring_backend  | 	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+spring_backend  | 	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:728)
+spring_backend  | 	at com.shop.ecommerce_backend.controller.CartController$$SpringCGLIB$$0.fetchCart(<generated>)
+spring_backend  | 	at jdk.internal.reflect.GeneratedMethodAccessor45.invoke(Unknown Source)
+spring_backend  | 	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(Unknown Source)
+spring_backend  | 	at java.base/java.lang.reflect.Method.invoke(Unknown Source)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:258)
+spring_backend  | 	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:191)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:991)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:896)
+spring_backend  | 	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+spring_backend  | 	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+spring_backend  | 	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+spring_backend  | 	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.ServerHttpObservationFilter.doFilterInternal(ServerHttpObservationFilter.java:110)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+spring_backend  | 	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:162)
+spring_backend  | 	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:138)
+spring_backend  | 	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165)
+spring_backend  | 	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:88)
+spring_backend  | 	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:482)
+spring_backend  | 	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:113)
+spring_backend  | 	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:83)
+spring_backend  | 	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:72)
+spring_backend  | 	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:342)
+spring_backend  | 	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:399)
+spring_backend  | 	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+spring_backend  | 	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:903)
+spring_backend  | 	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1774)
+spring_backend  | 	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:973)
+spring_backend  | 	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:491)
+spring_backend  | 	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+spring_backend  | 	at java.base/java.lang.Thread.run(Unknown Source)
+spring_backend  | ========================================
+spring_backend  | [2025-11-18T00:35:53.803322044] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | [2025-11-18T00:36:03.812911979] Checking for abandoned carts...
+spring_backend  | Found 0 inactive carts
+spring_backend  | Adding item - Session: 89ed5beb-083e-4f90-99fe-c5fca0e4df38, Product: 3
+spring_backend  | Finding cart for session: 89ed5beb-083e-4f90-99fe-c5fca0e4df38
+spring_backend  | Creating new cart for session: 89ed5beb-083e-4f90-99fe-c5fca0e4df38
+spring_backend  | Added new item to cart
+spring_backend  | Final cart has 1 items
+spring_backend  | Cart after add: 1 items, Total: 629.00

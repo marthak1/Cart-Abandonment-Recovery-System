@@ -1,0 +1,129 @@
+name: cart-recovery-mvp
+services:
+  backend:
+    build:
+      context: C:\Users\user\cart-recovery-mvp\ecommerce-backend\ecommerce-backend
+      dockerfile: Dockerfile
+    container_name: spring_backend
+    depends_on:
+      db:
+        condition: service_healthy
+        required: true
+    environment:
+      LOGGING_LEVEL_ROOT: INFO
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: com.mysql.cj.jdbc.Driver
+      SPRING_DATASOURCE_PASSWORD: 2xTowu1BofhCx+YMX/INps991VN5H0ass7CJQo3hubA=
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/cartdb_docker?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true
+      SPRING_DATASOURCE_USERNAME: cart_app_user
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.MySQL8Dialect
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      SPRING_JPA_SHOW_SQL: "false"
+      SPRING_PROFILES_ACTIVE: prod
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - --no-verbose
+        - --tries=1
+        - --spider
+        - http://localhost:8080/actuator/health
+      timeout: 10s
+      interval: 30s
+      retries: 3
+      start_period: 1m0s
+    networks:
+      app-network: null
+    ports:
+      - mode: ingress
+        target: 8080
+        published: "8080"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: backend_logs
+        target: /app/logs
+        volume: {}
+  db:
+    container_name: mysql_db
+    environment:
+      MYSQL_DATABASE: cartdb_docker
+      MYSQL_PASSWORD: 2xTowu1BofhCx+YMX/INps991VN5H0ass7CJQo3hubA=
+      MYSQL_ROOT_PASSWORD: ZP8O82YerbV9UxSInS4dsSRsZlG8i67KGQ3fFt1ltro=
+      MYSQL_USER: cart_app_user
+    healthcheck:
+      test:
+        - CMD
+        - mysqladmin
+        - ping
+        - -h
+        - localhost
+        - -u
+        - root
+        - -pZP8O82YerbV9UxSInS4dsSRsZlG8i67KGQ3fFt1ltro=
+      timeout: 5s
+      interval: 10s
+      retries: 5
+      start_period: 30s
+    image: mysql:8.0
+    networks:
+      app-network: null
+    ports:
+      - mode: ingress
+        target: 3306
+        published: "3306"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: volume
+        source: db_data
+        target: /var/lib/mysql
+        volume: {}
+      - type: bind
+        source: C:\Users\user\cart-recovery-mvp\init-db
+        target: /docker-entrypoint-initdb.d
+        bind:
+          create_host_path: true
+  frontend:
+    build:
+      context: C:\Users\user\cart-recovery-mvp\ecommerce-frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_APP_API_URL: http://localhost:8080
+        VITE_MODE: production
+    container_name: react_frontend
+    depends_on:
+      backend:
+        condition: service_healthy
+        required: true
+    healthcheck:
+      test:
+        - CMD
+        - wget
+        - --no-verbose
+        - --tries=1
+        - --spider
+        - http://localhost:80/health
+      timeout: 5s
+      interval: 30s
+      retries: 3
+      start_period: 10s
+    networks:
+      app-network: null
+    ports:
+      - mode: ingress
+        target: 80
+        published: "80"
+        protocol: tcp
+    restart: unless-stopped
+networks:
+  app-network:
+    name: cart-recovery-mvp_app-network
+    driver: bridge
+volumes:
+  backend_logs:
+    name: cart-recovery-mvp_backend_logs
+    driver: local
+  db_data:
+    name: cart-recovery-mvp_db_data
+    driver: local

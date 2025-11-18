@@ -82,6 +82,6 @@ backend/
 ├── docker-compose.yml
 ├── .github/
 │   └── workflows/
-│       └── ci.yml      
+│       └── ci-cd.yml      
 ├── README.md
 ```
