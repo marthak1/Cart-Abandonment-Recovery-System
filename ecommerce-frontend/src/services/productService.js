@@ -3,7 +3,7 @@ import api from "../api/api.js";
 
 export const getAllProducts = async () => {
     try {
-        const response = await api.get('/products');
+        const response = await api.get('${API_URL}/api/products');
         console.log("Service response:", response);
         return response;  // Return the full response object
     } catch (error) {
