@@ -13,7 +13,7 @@ public class WebConfig {
             public void addCorsMappings(@org.springframework.lang.NonNull org.springframework.web.servlet.config.annotation.CorsRegistry registry) {
                 registry.addMapping("/**")
                         .allowedOrigins("http://frontend", "http://localhost", "http://127.0.0.1", "http://localhost:5173",
-                                "http://localhost:4173", "https://cart-recovery-system-production.up.railway.app/"
+                                "http://localhost:4173", "https://cart-recovery-system-production.up.railway.app/",
                                 "http://localhost:80",
                                 "http://localhost:3000")
                         .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
