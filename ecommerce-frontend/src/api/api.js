@@ -1,7 +1,7 @@
 // This module sets up an Axios instance with interceptors for logging requests and responses.
 import axios from 'axios';
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE || 'http://localhost:8080/api';
+const API_BASE_URL = import.meta.env.VITE_APP_API_URL  || 'http://localhost:8080/api';
 
 const api = axios.create({
     baseURL: API_BASE_URL,
