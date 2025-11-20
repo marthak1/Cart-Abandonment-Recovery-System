@@ -37,7 +37,7 @@ function App() {
                                 <li>
                                     <Link
                                         to="/"
-                                        className="flex items-center gap-2 px-3 py-2.5 rounded-lg font-semibold text-white hover:bg-white/20 backdrop-blur-sm transition-all duration-200 border-2 border-transparent hover:border-white/30"
+                                        className="flex items-center gap-2 px-2.5 py-2.5 rounded-lg font-semibold text-white hover:bg-white/20 backdrop-blur-sm transition-all duration-200 border-2 border-transparent hover:border-white/30"
                                     >
                                         <HomeIcon className="w-5 h-5" />
                                         Home
@@ -46,16 +46,15 @@ function App() {
                                 <li>
                                     <Link
                                         to="/cart"
-                                        className=" relative flex items-center gap-2 px-3 py-2.5 rounded-lg font-semibold bg-white text-purple-600 hover:bg-purple-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+                                        className=" relative flex items-center gap-2 px-2.5 py-2.5 rounded-lg font-semibold bg-white text-purple-600 hover:bg-purple-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
                                     >
                                         {cartCount > 0 && (
                                             <span data-testid="cart-count"  className="absolute -top-2 -right-2 bg-purple-600 text-white text-xs rounded-full px-2">{cartCount}</span>
                                         )}
-                                        {/*<div className="relative flex items-center gap-2 px-6 py-2.5 rounded-lg font-semibold bg-white text-purple-600 hover:bg-purple-50 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">*/}
+
                                         <ShoppingCart className="w-5 h-5" />
 
                                         Cart
-                                        {/*</div>*/}
                                     </Link>
                                 </li>
                             </ul>

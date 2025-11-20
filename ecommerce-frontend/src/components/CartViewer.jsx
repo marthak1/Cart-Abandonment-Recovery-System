@@ -85,13 +85,9 @@ const CartViewer = () => {
                                 <li
                                     data-testid={`quantity-${item.productId}`}
                                     key={item.productId || item.id}
-                                    className="flex gap-4 p-4 border border-gray-200 rounded-xl hover:shadow-md transition-all duration-200 bg-gray-50"
+                                    className="flex flex-col sm:flex-row gap-4 p-4 sm:p-6 lg:p-8 border border-gray-200 rounded-xl hover:shadow-md transition-all duration-200 bg-gray-50"
+
                                 >
-
-
-
-
-
 
                                     {/* Product Image */}
                                     <img
