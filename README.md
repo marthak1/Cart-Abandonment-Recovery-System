@@ -85,5 +85,5 @@ backend/
 │       └── ci-cd.yml      
 ├── README.md
 ```
-## Live deployment:
+## Live deployment: Railway
 (https://cart-recovery-system-production.up.railway.app/)
