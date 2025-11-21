@@ -93,4 +93,4 @@ backend/
 
 ### Backend Healthcheck: (https://backend-production-b6f6.up.railway.app/actuator/health)
 
-### API: (https://backend-production-b6f6.up.railway.app/api/products)
+### Product API: (https://backend-production-b6f6.up.railway.app/api/products)
