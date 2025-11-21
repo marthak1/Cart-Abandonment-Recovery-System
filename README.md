@@ -89,4 +89,4 @@ backend/
 (https://cart-recovery-system-production.up.railway.app/)
 
 ## Validation checklists:
- “Open the Railway deployment link → add product to cart → increase item quantity → decrease item quantity → remove an item from cart → play around → wait 30s inactivity → recovery modal appears. → continue shopping or clear all items”
+ “Open the Railway deployment link → product listing loads: add product to cart → cart is created: increase item quantity → decrease item quantity → remove an item from cart → play around: cart persist after refresh → wait 30s inactivity → recovery modal appears. → continue shopping or clear all items”
