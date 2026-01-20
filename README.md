@@ -85,3 +85,12 @@ backend/
 │       └── ci-cd.yml      
 ├── README.md
 ```
+## 🚀 Live deployment: Railway
+### Frontend: (https://cart-recovery-system-production.up.railway.app/)
+
+## Validation checklists:
+ “Open the Railway deployment link → product listing loads: add product to cart → cart is created: increase item quantity → decrease item quantity → remove an item from cart → play around: cart persist after refresh → wait 30s inactivity → recovery modal appears. → continue shopping or clear all items”
+
+### Backend Healthcheck: (https://backend-production-b6f6.up.railway.app/actuator/health)
+
+### Product API: (https://backend-production-b6f6.up.railway.app/api/products)
